@@ -1,11 +1,49 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '@/layouts/Layout.astro';
 ---
 
 <Layout>
-	<Welcome />
+  <section>
+    <!-- <div class="hero"></div> -->
+    <div class="relative w-fit">
+      <img src="/images/team-bg.png" alt="" class="block w-dvw" />
+      <h1
+        id="team-name"
+        class="absolute top-1/7 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl md:text-6xl lg:text-9xl"
+      >
+        Real Tajo F.C
+      </h1>
+      <img src="/images/team-without-bg.png" alt="" class="absolute top-0 left-0 w-full h-full" />
+    </div>
+
+    <div class="p-10">
+      <p class="text-red-600">Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .hero {
+    aspect-ratio: 3 / 2;
+    background-image: url('/images/team.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  #team-name {
+    animation-duration: 3s;
+    animation-name: slide-in;
+  }
+
+  @keyframes slide-in {
+    from {
+      transform: translateY(2em);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
