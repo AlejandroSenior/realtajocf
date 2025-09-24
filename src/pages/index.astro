@@ -1,132 +1,32 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import TeamCarousel from '@/components/TeamCarousel.astro';
+import LeaderBoard from '@/components/LeaderBoard.astro';
 ---
 
 <Layout>
   <section>
     <!-- <div class="hero"></div> -->
     <div class="relative w-fit">
-      <img src="/images/team-bg.png" alt="Foto equipo Real Tajo CF" class="block w-dvw aspect-[1280/853]" />
+      <img id="field-img" src="/images/team-bg.png" alt="Imagen de fondo" class="block w-dvw aspect-[1280/853]" />
       <h1
         id="team-name"
         class="absolute top-1/7 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl md:text-6xl lg:text-9xl"
       >
         Real Tajo F.C
       </h1>
-      <img src="/images/team-without-bg.png" alt="" class="absolute top-0 left-0 w-full h-full" />
+      <img src="/images/team-without-bg.png" alt="Foto equipo Real Tajo CF" class="absolute top-0 left-0 w-full h-full" />
     </div>
   </section>
 
-  <div class="p-10">
-    <p class="text-red-600">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti
-      quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam
-      reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum
-      laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime
-      voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam
-      ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non
-      inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi
-      ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id,
-      sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti
-      quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam
-      reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum
-      laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime
-      voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam
-      ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non
-      inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi
-      ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id,
-      sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti
-      quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam
-      reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum
-      laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime
-      voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam
-      ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non
-      inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi
-      ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id,
-      sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti
-      quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam
-      reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum
-      laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime
-      voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam
-      ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non
-      inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi
-      ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id,
-      sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti
-      quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam
-      reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum
-      laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime
-      voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam
-      ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non
-      inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi
-      ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id,
-      sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti
-      quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam
-      reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum
-      laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime
-      voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam
-      ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non
-      inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi
-      ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id,
-      sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti
-      quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam
-      reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum
-      laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime
-      voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam
-      ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non
-      inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi
-      ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id,
-      sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti
-      quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam
-      reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum
-      laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime
-      voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam
-      ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Adipisci porro quo, animi ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non
-      inventore dolorum laboriosam cumque? Id, sapiente.Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci porro quo, animi
-      ratione maxime voluptatibus sequi corrupti quibusdam ipsam, nemo quam reiciendis eius non inventore dolorum laboriosam cumque? Id,
-      sapiente.
-    </p>
-  </div>
+  <TeamCarousel />
+
+  <LeaderBoard />
 </Layout>
 
 <style>
-  .hero {
-    aspect-ratio: 3 / 1;
-    background-image: url('/images/team.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  #field-img {
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
   }
 
   #team-name {
