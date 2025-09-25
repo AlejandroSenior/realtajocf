@@ -1,0 +1,94 @@
+---
+const homeName = 'REAL TAJO C.F.';
+const awayName = 'SPLASH FC';
+const homeLogoSrc = '/images/bluebirds.png';
+const awayLogoSrc = '/images/splashfc.png';
+const homeScore = 2;
+const awayScore = 3;
+const datetimeISO = '2025-01-19T09:51:00';
+const dateLabel = 'January 19, 2025';
+const venue = 'Big Stadium';
+const venueUrl = '#';
+const readMoreUrl = '#';
+---
+
+<section class="py-8 md:py-12 mt-10">
+  <h2 class="text-center text-4xl md:text-5xl font-extrabold tracking-wide text-white">Último partido</h2>
+
+  <div class="mt-10 flex flex-col items-center gap-5" aria-label="Match result">
+    <!-- fila equipos + marcador -->
+    <div class="flex items-center gap-6 md:gap-10">
+      <!-- Home -->
+      <div class="hidden md:flex flex-col items-center min-w-56">
+        <span class="text-white text-lg tracking-wide uppercase">{homeName}</span>
+        <span class="mt-2 h-0.5 w-48 bg-gray-200"></span>
+      </div>
+
+      <!-- bloque marcador -->
+      <div class="flex items-center">
+        <!-- Home logo -->
+        <div class="-mr-5 z-10">
+          <img src="/escudo-without-bg.avif" alt={`${homeName} logo`} class="w-15 object-contain" />
+        </div>
+
+        <!-- pieza izquierda -->
+        <div class="score-chunk-left bg-white px-10 md:px-10 py-2 mr-2">
+          <span class="block text-5xl md:text-6xl font-extrabold leading-none text-center">{homeScore}</span>
+        </div>
+
+        <!-- separador central con “pico” -->
+        <div class="score-chunk-mid bg-white px-10 md:px-10 py-2 ml-2">
+          <span class="block text-5xl md:text-6xl font-extrabold leading-none text-center">{awayScore}</span>
+        </div>
+
+        <!-- Away logo -->
+        <div class="-ml-5 z-10">
+          <img src="/escudo-without-bg.avif" alt={`${awayName} logo`} class="w-15 object-contain" />
+        </div>
+      </div>
+
+      <!-- Away -->
+      <div class="hidden md:flex flex-col items-center min-w-56">
+        <span class="text-white text-lg tracking-wide uppercase">{awayName}</span>
+        <span class="mt-2 h-0.5 w-48 bg-gray-200"></span>
+      </div>
+    </div>
+
+    <!-- nombres para móvil -->
+    <div class="md:hidden grid grid-cols-2 gap-4 w-full px-6">
+      <div class="flex flex-col text-center">
+        <div class="text-white font-medium">{homeName}</div>
+        <div class="mx-auto mt-2 h-0.5 w-24 bg-gray-200"></div>
+      </div>
+      <div class="flex flex-col justify-between text-center">
+        <div class="text-white font-medium">{awayName}</div>
+        <div class="mx-auto mt-2 h-0.5 w-24 bg-gray-200"></div>
+      </div>
+    </div>
+
+    <p class="text-sm text-white text-center mt-5">
+      {
+        dateLabel
+          ? dateLabel
+          : datetimeISO
+            ? new Date(datetimeISO).toLocaleString(undefined, {
+                year: 'numeric',
+                month: 'long',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+              })
+            : null
+      }
+    </p>
+  </div>
+</section>
+
+<style>
+  .score-chunk-left {
+    clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+  }
+  .score-chunk-mid {
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 50%);
+  }
+</style>
