@@ -1,0 +1,165 @@
+---
+// Datos de ejemplo para la tabla de clasificación de La Liga
+const clasificacion = [
+  {
+    pos: 1,
+    team: 'Real Madrid',
+    j: 10,
+    g: 8,
+    e: 2,
+    p: 0,
+    gf: 24,
+    gc: 8,
+    pts: 26
+  },
+  {
+    pos: 2,
+    team: 'FC Barcelona',
+    j: 10,
+    g: 8,
+    e: 1,
+    p: 1,
+    gf: 28,
+    gc: 12,
+    pts: 25
+  },
+  {
+    pos: 3,
+    team: 'Atlético Madrid',
+    j: 10,
+    g: 7,
+    e: 2,
+    p: 1,
+    gf: 19,
+    gc: 10,
+    pts: 23
+  },
+  {
+    pos: 4,
+    team: 'Athletic Bilbao',
+    j: 10,
+    g: 6,
+    e: 3,
+    p: 1,
+    gf: 18,
+    gc: 11,
+    pts: 21
+  },
+  {
+    pos: 5,
+    team: 'Real Sociedad',
+    j: 10,
+    g: 6,
+    e: 2,
+    p: 2,
+    gf: 16,
+    gc: 12,
+    pts: 20
+  },
+  {
+    pos: 6,
+    team: 'Villarreal',
+    j: 10,
+    g: 5,
+    e: 4,
+    p: 1,
+    gf: 15,
+    gc: 10,
+    pts: 19
+  },
+  {
+    pos: 7,
+    team: 'Sevilla FC',
+    j: 10,
+    g: 5,
+    e: 3,
+    p: 2,
+    gf: 14,
+    gc: 11,
+    pts: 18
+  },
+  {
+    pos: 8,
+    team: 'Real Betis',
+    j: 10,
+    g: 4,
+    e: 4,
+    p: 2,
+    gf: 13,
+    gc: 12,
+    pts: 16
+  }
+];
+---
+
+<div class="my-10 p-5 max-w-7xl mx-auto">
+  <h2 class="text-center text-2xl font-bold text-secondary mb-5">Clasificación Liga 2025/26</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Pos</th>
+        <th>Equipo</th>
+        <th>J</th>
+        <th>G</th>
+        <th>E</th>
+        <th>P</th>
+        <th>GF</th>
+        <th>GC</th>
+        <th>Pts</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        clasificacion.map((equipo) => (
+          <tr>
+            <td class="text-center">{equipo.pos}</td>
+            <td>{equipo.team}</td>
+            <td>{equipo.j}</td>
+            <td>{equipo.g}</td>
+            <td>{equipo.e}</td>
+            <td>{equipo.p}</td>
+            <td>{equipo.gf}</td>
+            <td>{equipo.gc}</td>
+            <td class="font-bold">{equipo.pts}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  th {
+    background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
+    color: white;
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    table {
+      font-size: 0.9rem;
+    }
+
+    th,
+    td {
+      padding: 8px 4px;
+    }
+  }
+</style>

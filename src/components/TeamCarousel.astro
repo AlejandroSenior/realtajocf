@@ -73,10 +73,16 @@ const players = [
 </div>
 
 <style>
+  @media (width < 400px) {
+    .swiper {
+      max-width: 170px;
+    }
+  }
+
   @media (width <= 768px) {
     .swiper {
-      width: 320px;
-      height: 480px;
+      width: 100%;
+      max-width: 220px;
     }
 
     .swiper-slide {
