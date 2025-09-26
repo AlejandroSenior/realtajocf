@@ -9,45 +9,34 @@ const players = [
   { name: 'Lewandowski', image: '/images/players/fede.webp' },
   { name: 'Modrić', image: '/images/players/mbappe.webp' },
   { name: 'De Bruyne', image: '/images/players/arda.webp' },
-  { name: 'Salah', image: '/images/players/rodrygo.webp' }
+  { name: 'Salah', image: '/images/players/rodrygo.webp' },
+  { name: 'Mbappé', image: '/images/players/mbappe.webp' },
+  { name: 'Neymar', image: '/images/players/rodrygo.webp' },
+  { name: 'Messi', image: '/images/players/arda.webp' },
+  { name: 'Ramos', image: '/images/players/fede.webp' },
+  { name: 'Haaland', image: '/images/players/vini.webp' },
+  { name: 'Kane', image: '/images/players/mbappe.webp' }
 ];
 ---
 
 <script>
   import Swiper from 'swiper';
-  import { Autoplay, EffectCards } from 'swiper/modules';
+  import { Autoplay } from 'swiper/modules';
 
   const initSwiper = () => {
-    const width = window.innerWidth;
-
-    if (width > 768) {
-      new Swiper('.mySwiper', {
-        modules: [Autoplay],
-        loop: true,
-        spaceBetween: 40,
-        slidesPerView: 'auto',
-        centeredSlides: true,
-        autoplay: {
-          delay: 0,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true
-        },
-        speed: 3000
-      });
-    } else {
-      new Swiper('.mySwiper', {
-        modules: [EffectCards, Autoplay],
-        effect: 'cards',
-        grabCursor: true,
-        autoplay: {
-          delay: 2000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true
-        },
-        loop: true,
-        speed: 3000
-      });
-    }
+    new Swiper('.mySwiper', {
+      modules: [Autoplay],
+      loop: true,
+      spaceBetween: 40,
+      slidesPerView: 'auto',
+      centeredSlides: true,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
+      speed: 3000
+    });
   };
 
   window.addEventListener('load', initSwiper);
@@ -61,30 +50,22 @@ const players = [
 <div class="swiper mySwiper mt-5">
   <div class="swiper-wrapper">
     {
-      players.map((player) => (
-        <img
-          src={player.image}
-          alt={player.name}
-          class="swiper-slide border-4 border-secondary  w-full h-auto rounded-3xl shadow-xl bg-white max-w-[300px]"
-        />
-      ))
+      players
+        .slice()
+        .sort(() => Math.random() - 0.5)
+        .map((player) => (
+          <img
+            src={player.image}
+            alt={player.name}
+            class="swiper-slide border-4 border-secondary  w-full h-auto rounded-3xl shadow-xl bg-white max-w-[200px] md:max-w-[300px]"
+          />
+        ))
     }
   </div>
 </div>
 
 <style>
-  @media (width < 400px) {
-    .swiper {
-      max-width: 170px;
-    }
-  }
-
   @media (width <= 768px) {
-    .swiper {
-      width: 100%;
-      max-width: 220px;
-    }
-
     .swiper-slide {
       display: flex;
       align-items: center;

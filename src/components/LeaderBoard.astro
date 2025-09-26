@@ -1,95 +1,20 @@
 ---
-// Datos de ejemplo para la tabla de clasificación de La Liga
-const clasificacion = [
-  {
-    pos: 1,
-    team: 'Real Madrid',
-    j: 10,
-    g: 8,
-    e: 2,
-    p: 0,
-    gf: 24,
-    gc: 8,
-    pts: 26
-  },
-  {
-    pos: 2,
-    team: 'FC Barcelona',
-    j: 10,
-    g: 8,
-    e: 1,
-    p: 1,
-    gf: 28,
-    gc: 12,
-    pts: 25
-  },
-  {
-    pos: 3,
-    team: 'Atlético Madrid',
-    j: 10,
-    g: 7,
-    e: 2,
-    p: 1,
-    gf: 19,
-    gc: 10,
-    pts: 23
-  },
-  {
-    pos: 4,
-    team: 'Athletic Bilbao',
-    j: 10,
-    g: 6,
-    e: 3,
-    p: 1,
-    gf: 18,
-    gc: 11,
-    pts: 21
-  },
-  {
-    pos: 5,
-    team: 'Real Sociedad',
-    j: 10,
-    g: 6,
-    e: 2,
-    p: 2,
-    gf: 16,
-    gc: 12,
-    pts: 20
-  },
-  {
-    pos: 6,
-    team: 'Villarreal',
-    j: 10,
-    g: 5,
-    e: 4,
-    p: 1,
-    gf: 15,
-    gc: 10,
-    pts: 19
-  },
-  {
-    pos: 7,
-    team: 'Sevilla FC',
-    j: 10,
-    g: 5,
-    e: 3,
-    p: 2,
-    gf: 14,
-    gc: 11,
-    pts: 18
-  },
-  {
-    pos: 8,
-    team: 'Real Betis',
-    j: 10,
-    g: 4,
-    e: 4,
-    p: 2,
-    gf: 13,
-    gc: 12,
-    pts: 16
-  }
-];
+import type { ClassificationResponse, Team } from '@/interfaces/Classification.ts';
+
+let clasificacion: Team[] = [];
+
+try {
+  const response = await fetch('http://lianes8server.duckdns.org:8765/api/v1/classification', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  });
+  const data: ClassificationResponse = await response.json();
+  clasificacion = data.teams;
+} catch (error) {
+  console.error('Error al obtener la clasificación:', error);
+  // Datos de respaldo en caso de error
+  clasificacion = [];
+}
 ---
 
 <div class="my-10 p-5 max-w-7xl mx-auto">
@@ -113,15 +38,15 @@ const clasificacion = [
       {
         clasificacion.map((equipo) => (
           <tr>
-            <td class="text-center">{equipo.pos}</td>
+            <td class="text-center">{equipo.position}</td>
             <td>{equipo.team}</td>
-            <td>{equipo.j}</td>
-            <td>{equipo.g}</td>
-            <td>{equipo.e}</td>
-            <td>{equipo.p}</td>
-            <td>{equipo.gf}</td>
-            <td>{equipo.gc}</td>
-            <td class="font-bold">{equipo.pts}</td>
+            <td>{equipo.matches.played}</td>
+            <td>{equipo.matches.wins}</td>
+            <td>{equipo.matches.draws}</td>
+            <td>{equipo.matches.losses}</td>
+            <td>{equipo.goals.for}</td>
+            <td>{equipo.goals.against}</td>
+            <td class="font-bold">{equipo.points}</td>
           </tr>
         ))
       }

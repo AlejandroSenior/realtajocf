@@ -4,7 +4,17 @@
 @import 'swiper/css/pagination';
 
 @theme {
+  --color-primary-50: #edf0fd;
+  --color-primary-100: #d0dafb;
+  --color-primary-200: #a1b7f7;
+  --color-primary-300: #7299f3;
+  --color-primary-400: #367dee;
+  --color-primary-500: #2b65c3;
+  --color-primary-600: #204f9a;
+  --color-primary-700: #153a75;
   --color-primary: #0c2752;
+  --color-primary-900: #06193a;
+  --color-primary-950: #031029;
   --color-secondary: #cfa43c;
 }
 

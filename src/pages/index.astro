@@ -2,7 +2,8 @@
 import Layout from '@/layouts/Layout.astro';
 import TeamCarousel from '@/components/TeamCarousel.astro';
 import LeaderBoard from '@/components/LeaderBoard.astro';
-import Matches from '@/components/Matches.astro';
+import LastMatch from '@/components/LastMatch.astro';
+import Calendar from '@/components/Calendar.astro';
 ---
 
 <Layout>
@@ -21,9 +22,11 @@ import Matches from '@/components/Matches.astro';
 
   <TeamCarousel />
 
-  <Matches />
+  <LastMatch />
 
   <LeaderBoard />
+
+  <Calendar />
 </Layout>
 
 <style>
