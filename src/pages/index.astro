@@ -1,9 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import TeamCarousel from '@/components/TeamCarousel.astro';
-import LeaderBoard from '@/components/LeaderBoard.astro';
+import LeaderBoard from '@/components/LeaderBoard.vue';
 import LastMatch from '@/components/LastMatch.astro';
-import Calendar from '@/components/Calendar.astro';
+import Calendar from '@/components/Calendar.vue';
 ---
 
 <Layout>
@@ -24,9 +24,17 @@ import Calendar from '@/components/Calendar.astro';
 
   <LastMatch />
 
-  <LeaderBoard />
+  <LeaderBoard client:only="vue">
+    <template #fallback>
+      <div>Cargando clasificación...</div>
+    </template>
+  </LeaderBoard>
 
-  <Calendar />
+  <Calendar client:only="vue">
+    <template #fallback>
+      <div>Cargando calendario...</div>
+    </template>
+  </Calendar>
 </Layout>
 
 <style>
