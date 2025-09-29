@@ -17,7 +17,3 @@
   --color-primary-950: #031029;
   --color-secondary: #cfa43c;
 }
-
-html {
-  background-color: var(--color-primary);
-}

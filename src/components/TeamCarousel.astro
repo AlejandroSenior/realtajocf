@@ -1,21 +1,21 @@
 ---
 const players = [
-  { name: 'Mbappé', image: '/images/players/coti.webp' },
-  { name: 'Neymar', image: '/images/players/coti.webp' },
-  { name: 'Messi', image: '/images/players/coti.webp' },
-  { name: 'Ramos', image: '/images/players/coti.webp' },
-  { name: 'Haaland', image: '/images/players/coti.webp' },
-  { name: 'Kane', image: '/images/players/cortes.webp' },
-  { name: 'Lewandowski', image: '/images/players/cortes.webp' },
-  { name: 'Modrić', image: '/images/players/cortes.webp' },
-  { name: 'De Bruyne', image: '/images/players/coti.webp' },
-  { name: 'Salah', image: '/images/players/koke.webp' },
-  { name: 'Mbappé', image: '/images/players/koke.webp' },
-  { name: 'Neymar', image: '/images/players/koke.webp' },
-  { name: 'Messi', image: '/images/players/koke.webp' },
-  { name: 'Ramos', image: '/images/players/marinjr.webp' },
-  { name: 'Haaland', image: '/images/players/marinjr.webp' },
-  { name: 'Kane', image: '/images/players/marinjr.webp' }
+  { name: 'Cotinho', image: '/images/players/coti.webp' },
+  { name: 'Cotinho', image: '/images/players/coti.webp' },
+  { name: 'Cotinho', image: '/images/players/coti.webp' },
+  { name: 'Cotinho', image: '/images/players/coti.webp' },
+  { name: 'Cotinho', image: '/images/players/coti.webp' },
+  { name: 'Cortés', image: '/images/players/cortes.webp' },
+  { name: 'Cortés', image: '/images/players/cortes.webp' },
+  { name: 'Cortés', image: '/images/players/cortes.webp' },
+  { name: 'Cotinho', image: '/images/players/coti.webp' },
+  { name: 'Koke', image: '/images/players/koke.webp' },
+  { name: 'Koke', image: '/images/players/koke.webp' },
+  { name: 'Koke', image: '/images/players/koke.webp' },
+  { name: 'Koke', image: '/images/players/koke.webp' },
+  { name: 'Marín Jr', image: '/images/players/marinjr.webp' },
+  { name: 'Marín Jr', image: '/images/players/marinjr.webp' },
+  { name: 'Marín Jr', image: '/images/players/marinjr.webp' }
 ];
 ---
 
@@ -54,17 +54,22 @@ const players = [
         .slice()
         .sort(() => Math.random() - 0.5)
         .map((player) => (
-          <img
-            src={player.image}
-            alt={player.name}
-            class="swiper-slide border-4 border-secondary rounded-3xl shadow-xl bg-white max-w-[200px] md:max-w-[400px] aspect-[3/4]"
-          />
+          <div class="swiper-slide border-5 border-primary rounded-3xl shadow-xl bg-white max-w-[200px] md:max-w-[400px] aspect-[3/4] relative overflow-hidden">
+            <img src={player.image} alt={player.name} class="w-full h-full object-cover" />
+            <div class="player-info absolute bottom-0 left-0 right-0 h-[33%] flex items-end justify-center pb-3">
+              <div class="text-sm md:text-5xl text-white text-center font-bold mb-5">{player.name}</div>
+            </div>
+          </div>
         ))
     }
   </div>
 </div>
 
 <style>
+  .player-info {
+    background: linear-gradient(to top, var(--color-primary) 10%, transparent 100%);
+  }
+
   @media (width <= 768px) {
     .swiper-slide {
       display: flex;

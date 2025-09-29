@@ -9,8 +9,11 @@ importers:
   .:
     dependencies:
       '@astrojs/vue':
-        specifier: ^5.1.1
+        specifier: 5.1.1
         version: 5.1.1(@types/node@24.3.0)(astro@5.13.5(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1)(rollup@4.50.0)(typescript@5.9.2))(jiti@2.5.1)(lightningcss@1.30.1)(rollup@4.50.0)(vue@3.5.22(typescript@5.9.2))
+      '@fontsource/graduate':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@tailwindcss/vite':
         specifier: 4.1.12
         version: 4.1.12(vite@6.3.6(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1))
@@ -18,16 +21,16 @@ importers:
         specifier: 5.13.5
         version: 5.13.5(@types/node@24.3.0)(jiti@2.5.1)(lightningcss@1.30.1)(rollup@4.50.0)(typescript@5.9.2)
       firebase:
-        specifier: ^12.3.0
+        specifier: 12.3.0
         version: 12.3.0
       swiper:
-        specifier: ^12.0.2
+        specifier: 12.0.2
         version: 12.0.2
       tailwindcss:
         specifier: 4.1.12
         version: 4.1.12
       vue:
-        specifier: ^3.5.22
+        specifier: 3.5.22
         version: 3.5.22(typescript@5.9.2)
 
 packages:
@@ -579,6 +582,9 @@ packages:
 
   '@firebase/webchannel-wrapper@1.0.5':
     resolution: {integrity: sha512-+uGNN7rkfn41HLO0vekTFhTxk61eKa8mTpRGLO0QSqlQdKvIoGAvLp3ppdVIWbTGYJWM6Kp0iN+PjMIOcnVqTw==}
+
+  '@fontsource/graduate@5.2.7':
+    resolution: {integrity: sha512-w7VXITO8bxOev1DexiHw2dI22bAaA91a9SgMQG/1bEWQ01TJ0JwCd+Sf688SGB86jkGponijsZ4ZYE57hc3vkQ==}
 
   '@grpc/grpc-js@1.9.15':
     resolution: {integrity: sha512-nqE7Hc0AzI+euzUwDAy0aY5hCp10r734gMGRdU+qOPX0XSceI2ULrcXB5U2xSc5VkWwalCj4M7GzCAygZl2KoQ==}
@@ -3228,6 +3234,8 @@ snapshots:
       tslib: 2.8.1
 
   '@firebase/webchannel-wrapper@1.0.5': {}
+
+  '@fontsource/graduate@5.2.7': {}
 
   '@grpc/grpc-js@1.9.15':
     dependencies:
