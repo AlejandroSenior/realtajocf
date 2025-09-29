@@ -4,6 +4,7 @@ import TeamCarousel from '@/components/TeamCarousel.astro';
 import LeaderBoard from '@/components/LeaderBoard.vue';
 import LastMatch from '@/components/LastMatch.astro';
 import Calendar from '@/components/Calendar.vue';
+import NextMatch from '@/components/NextMatch.astro';
 ---
 
 <Layout>
@@ -20,19 +21,23 @@ import Calendar from '@/components/Calendar.vue';
 
   <TeamCarousel />
 
-  <LastMatch />
+  <div class="max-w-7xl mx-auto">
+    <LastMatch />
 
-  <LeaderBoard client:only="vue">
-    <template #fallback>
-      <div>Cargando clasificación...</div>
-    </template>
-  </LeaderBoard>
+    <NextMatch />
 
-  <Calendar client:only="vue">
-    <template #fallback>
-      <div>Cargando calendario...</div>
-    </template>
-  </Calendar>
+    <LeaderBoard client:only="vue">
+      <template #fallback>
+        <div>Cargando clasificación...</div>
+      </template>
+    </LeaderBoard>
+
+    <Calendar client:only="vue">
+      <template #fallback>
+        <div>Cargando calendario...</div>
+      </template>
+    </Calendar>
+  </div>
 </Layout>
 
 <style>

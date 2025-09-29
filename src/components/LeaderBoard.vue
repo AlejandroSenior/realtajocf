@@ -14,11 +14,11 @@ const fetchClasificacion = async () => {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const data: ClassificationResponse = await response.json();
     clasificacion.value = data.teams;
     console.log(data);
@@ -38,7 +38,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="my-10 p-5 max-w-7xl mx-auto">
+  <div class="my-10 mx-auto">
     <h2 class="text-center text-2xl font-bold text-secondary mb-5">Clasificación Liga 2025/26</h2>
 
     <div v-if="loading" class="text-center py-8">
@@ -47,12 +47,6 @@ onMounted(() => {
 
     <div v-else-if="error" class="text-center py-8">
       <p class="text-red-500 text-lg">{{ error }}</p>
-      <button 
-        @click="fetchClasificacion" 
-        class="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark transition-colors"
-      >
-        Reintentar
-      </button>
     </div>
 
     <table v-else-if="clasificacion.length > 0">
@@ -90,18 +84,21 @@ onMounted(() => {
   </div>
 </template>
 
-
 <style>
 table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
+  border-radius: 20px;
   overflow: hidden;
 }
 
+th,
+td {
+  border: 2px solid #000;
+}
+
 th {
-  background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
+  background-color: var(--color-primary);
   color: white;
   padding: 12px 8px;
   text-align: center;
@@ -112,6 +109,10 @@ td {
   padding: 10px 8px;
   border-bottom: 1px solid #eee;
   text-align: center;
+}
+
+tr:last-child {
+  border-bottom: 2px solid #000;
 }
 
 @media (max-width: 768px) {
