@@ -44,7 +44,6 @@ const fetchCalendar = async () => {
     }
 
     const data: CalendarResponse = await response.json();
-    console.log('Datos del calendario:', data);
     calendar.value = data;
   } catch (err) {
     console.error('Error al obtener el calendario:', err);
@@ -60,7 +59,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="calendar-wrapper">
+  <div class="calendar-wrapper max-lg:p-5">
     <!-- Loading state -->
     <div v-if="loading" class="loading-message">
       <p>Cargando calendario...</p>

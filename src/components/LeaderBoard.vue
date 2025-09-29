@@ -21,7 +21,6 @@ const fetchClasificacion = async () => {
 
     const data: ClassificationResponse = await response.json();
     clasificacion.value = data.teams;
-    console.log(data);
   } catch (err) {
     console.error('Error al obtener la clasificación:', err);
     error.value = 'Error al cargar la clasificación';
@@ -38,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="my-10 mx-auto">
+  <div class="my-10 mx-auto max-lg:p-5">
     <h2 class="text-center text-2xl font-bold text-secondary mb-5">Clasificación Liga 2025/26</h2>
 
     <div v-if="loading" class="text-center py-8">
@@ -89,7 +88,6 @@ table {
   width: 100%;
   border-collapse: collapse;
   border-radius: 20px;
-  overflow: hidden;
 }
 
 th,
