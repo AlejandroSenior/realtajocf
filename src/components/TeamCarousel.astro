@@ -15,7 +15,7 @@ const players = [
   { name: 'Molina', image: '/images/players/molina.webp' },
   { name: 'Senior Jr', image: '/images/players/senior.webp' },
   { name: 'Lianes', image: '/images/players/lianes.webp' },
-  { name: 'Molina', image: '/images/players/molina.webp' },
+  { name: 'Molina', image: '/images/players/molina.webp' }
 ];
 ---
 
@@ -47,7 +47,7 @@ const players = [
   });
 </script>
 
-<div class="swiper mySwiper mt-5">
+<div class="swiper mySwiper">
   <div class="swiper-wrapper">
     {
       players
@@ -66,6 +66,10 @@ const players = [
 </div>
 
 <style>
+  .swiper {
+    background: linear-gradient(to top, white 50%, var(--color-primary) 100%);
+  }
+
   .player-info {
     background: linear-gradient(to top, var(--color-primary) 10%, transparent 100%);
   }
