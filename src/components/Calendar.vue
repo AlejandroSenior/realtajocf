@@ -1,32 +1,23 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import type { CalendarResponse, Match } from '@/interfaces/Calendar';
+import type { CalendarResponse } from '@/interfaces/Calendar';
 
 const calendar = ref<CalendarResponse | null>(null);
 const loading = ref(false);
 const error = ref<string | null>(null);
 
-const groupMatchesByMonth = (matches: Match[]) => {
-  const grouped = matches.reduce((acc, match) => {
-    const date = new Date(match.date);
-    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-    const monthName = date.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+const nextThreeMatches = computed(() => {
+  if (!calendar.value?.matches) return [];
 
-    if (!acc[monthKey]) {
-      acc[monthKey] = {
-        name: monthName,
-        matches: [] as Match[]
-      };
-    }
-    acc[monthKey].matches.push(match);
-    return acc;
-  }, {} as Record<string, { name: string; matches: Match[] }>);
+  const currentDate = new Date();
 
-  return Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b));
-};
+  // Filtrar partidos futuros y ordenarlos por fecha
+  const upcomingMatches = calendar.value.matches
+    .filter(match => new Date(match.date) >= currentDate)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-const matchesByMonth = computed(() => {
-  return calendar.value ? groupMatchesByMonth(calendar.value.matches) : [];
+  // Devolver solo los primeros 3
+  return upcomingMatches.slice(0, 3);
 });
 
 const fetchCalendar = async () => {
@@ -59,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="calendar-wrapper max-lg:p-5">
+  <div class="calendar-wrapper mt-10 max-lg:p-5">
     <!-- Loading state -->
     <div v-if="loading" class="loading-message">
       <p>Cargando calendario...</p>
@@ -72,54 +63,46 @@ onMounted(() => {
 
     <!-- Calendar content -->
     <div v-else-if="calendar">
-      <h2 class="text-center text-2xl font-bold text-secondary mb-5">Calendario 2025-2026</h2>
+      <h2 class="text-center text-2xl font-bold text-secondary mb-5">Próximos partidos</h2>
 
-      <div v-if="calendar.matches && calendar.matches.length > 0">
-        <div v-for="[monthKey, monthData] in matchesByMonth" :key="monthKey">
-          <h2 class="text-xl font-bold mb-2 mt-7">{{ monthData.name }}</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div
-              v-for="match in monthData.matches"
-              :key="`${match.matchday}-${match.date}`"
-              class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[320px] border-3 border-primary"
-            >
-              <div class="flex justify-between items-center">
-                <span class="">Jornada {{ match.matchday }}</span>
-                <span :class="`${match.is_home ? 'text-secondary' : 'text-gray-500'}`">
-                  {{ match.is_home ? 'Local' : 'Visitante' }}
-                </span>
-              </div>
+      <div v-if="nextThreeMatches.length > 0">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div v-for="match in nextThreeMatches" :key="`${match.matchday}-${match.date}`"
+            class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary">
+            <div class="flex justify-between items-center">
+              <span class="">Jornada {{ match.matchday }}</span>
+              <span>
+                {{ match.is_home ? 'Local' : 'Visitante' }}
+              </span>
+            </div>
 
-              <div class="text-center">
-                {{
-                  new Date(match.date).toLocaleDateString('es-ES', {
-                    weekday: 'short',
-                    day: '2-digit',
-                    month: 'short'
-                  })
-                }}
-                <br />
-                {{
-                  new Date(match.date).toLocaleTimeString('es-ES', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })
-                }}
-              </div>
+            <div class=" text-center">
+              {{
+                new Date(match.date).toLocaleDateString('es-ES', {
+                  weekday: 'short',
+                  day: '2-digit',
+                  month: 'short'
+                })
+              }}
+              <br />
+              {{
+                new Date(match.date).toLocaleTimeString('es-ES', {
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })
+              }}
+            </div>
 
-              <div class="flex mx-auto items-center">
-                <span class="text-pimary max-w-[150px] text-center">
-                  {{ match.is_home ? 'Real Tajo CF' : match.opponent }}
-                </span>
+            <div class="flex mx-auto items-center">
+              <span class="max-w-[150px] text-center">
+                {{ match.is_home ? 'Real Tajo CF' : match.opponent }}
+              </span>
 
-                <span class="mx-5">VS</span>
+              <span class="mx-5">VS</span>
 
-                <span class="text-gray-500 max-w-[150px] text-center">
-                  {{ match.is_home ? match.opponent : 'Real Tajo CF' }}
-                </span>
-              </div>
-
-              <span class="text-center text-sm">{{ match.stage }}</span>
+              <span class="max-w-[150px] text-center">
+                {{ match.is_home ? match.opponent : 'Real Tajo CF' }}
+              </span>
             </div>
           </div>
         </div>
