@@ -19,8 +19,60 @@
         </svg>
       </button>
 
+      <!-- Logout Button -->
+      <button id="logout-button" class="flex items-center space-x-2 px-3 py-2 rounded-md text-red-600 hover:text-red-800 hover:bg-red-50 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+        </svg>
+        <span class="hidden sm:inline">Cerrar Sesión</span>
+      </button>
+
       <!-- User Avatar -->
       <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-semibold">A</div>
     </div>
   </div>
 </header>
+
+<script>
+  import { logout } from '@/firebase/client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const logoutButton = document.getElementById('logout-button') as HTMLButtonElement;
+    
+    if (logoutButton) {
+      logoutButton.addEventListener('click', async () => {
+        try {
+          // Mostrar estado de carga
+          logoutButton.disabled = true;
+          logoutButton.innerHTML = `
+            <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            <span class="hidden sm:inline">Cerrando...</span>
+          `;
+
+          const result = await logout();
+          
+          if (result.success) {
+            // Redirigir al login después del logout exitoso
+            window.location.href = '/login';
+          } else {
+            console.error('Error al cerrar sesión:', result.error);
+            // Restaurar el botón en caso de error
+            logoutButton.disabled = false;
+            logoutButton.innerHTML = `
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+              </svg>
+              <span class="hidden sm:inline">Cerrar Sesión</span>
+            `;
+          }
+        } catch (error) {
+          console.error('Error inesperado al cerrar sesión:', error);
+          // En caso de error, forzar la redirección
+          window.location.href = '/login';
+        }
+      });
+    }
+  });
+</script>

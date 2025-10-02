@@ -16,7 +16,15 @@ import SideBar from '@/components/admin/SideBar.astro';
     <title>Administración - Real Tajo C.F.</title>
   </head>
   <body>
-    <div class="flex h-screen bg-gray-100">
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-content">
+        <img src="/escudo.avif" alt="Real Tajo C.F." class="loading-logo" />
+        <div class="loading-spinner"></div>
+        <p>Verificando acceso...</p>
+      </div>
+    </div>
+
+    <div id="admin-content" class="flex h-screen bg-gray-100" style="display: none;">
       <SideBar />
 
       <div class="flex-1 flex flex-col overflow-hidden">
@@ -37,5 +45,85 @@ import SideBar from '@/components/admin/SideBar.astro';
       height: 100%;
       font-family: 'Graduate', serif;
     }
+
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loading-content {
+      text-align: center;
+      color: white;
+    }
+
+    .loading-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-content p {
+      margin: 0;
+      font-size: 16px;
+      opacity: 0.9;
+    }
   </style>
+
+  <script>
+    import { getCurrentUser } from '@/firebase/client';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const loadingScreen = document.getElementById('loading-screen');
+      const adminContent = document.getElementById('admin-content');
+
+      if (!loadingScreen || !adminContent) {
+        console.error('Elementos de UI no encontrados');
+        window.location.href = '/login';
+        return;
+      }
+
+      try {
+        // Verificar si el usuario está autenticado
+        const user = await getCurrentUser();
+        
+        if (user) {
+          // El usuario está autenticado, mostrar el contenido de admin
+          loadingScreen.style.display = 'none';
+          adminContent.style.display = 'flex';
+        } else {
+          // El usuario no está autenticado, redirigir al login
+          window.location.href = '/login';
+        }
+      } catch (error) {
+        console.error('Error verificando autenticación:', error);
+        // En caso de error, redirigir al login por seguridad
+        window.location.href = '/login';
+      }
+    });
+  </script>
 </html>
