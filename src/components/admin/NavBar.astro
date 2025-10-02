@@ -33,46 +33,173 @@
   </div>
 </header>
 
+<!-- Modal de confirmación de logout -->
+<div id="logout-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+      <div class="flex items-center mb-4">
+        <div class="p-2 bg-red-100 rounded-full mr-3">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900">Cerrar Sesión</h3>
+      </div>
+      
+      <p class="text-gray-600 mb-6">¿Estás seguro de que quieres cerrar sesión? Serás redirigido a la página de login.</p>
+      
+      <div class="flex space-x-3">
+        <button id="cancel-logout" class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+          Cancelar
+        </button>
+        <button id="confirm-logout" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+          <span class="logout-text">Cerrar Sesión</span>
+          <span class="logout-spinner hidden">
+            <svg class="w-4 h-4 animate-spin inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Cerrando...
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast de notificación -->
+<div id="error-toast" class="fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 hidden">
+  <div class="flex items-center">
+    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span id="error-message">Error al cerrar sesión. Inténtalo de nuevo.</span>
+  </div>
+</div>
+
 <script>
   import { logout } from '@/firebase/client';
 
   document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button') as HTMLButtonElement;
+    const logoutModal = document.getElementById('logout-modal') as HTMLDivElement;
+    const cancelButton = document.getElementById('cancel-logout') as HTMLButtonElement;
+    const confirmButton = document.getElementById('confirm-logout') as HTMLButtonElement;
+    const errorToast = document.getElementById('error-toast') as HTMLDivElement;
+    const logoutText = document.querySelector('.logout-text') as HTMLSpanElement;
+    const logoutSpinner = document.querySelector('.logout-spinner') as HTMLSpanElement;
     
-    if (logoutButton) {
-      logoutButton.addEventListener('click', async () => {
-        try {
-          // Mostrar estado de carga
-          logoutButton.disabled = true;
-          logoutButton.innerHTML = `
-            <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-            <span class="hidden sm:inline">Cerrando...</span>
-          `;
+    // Mostrar modal de confirmación
+    if (logoutButton && logoutModal) {
+      logoutButton.addEventListener('click', () => {
+        logoutModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevenir scroll
+      });
+    }
 
-          const result = await logout();
-          
-          if (result.success) {
-            // Redirigir al login después del logout exitoso
-            window.location.href = '/login';
-          } else {
-            console.error('Error al cerrar sesión:', result.error);
-            // Restaurar el botón en caso de error
-            logoutButton.disabled = false;
-            logoutButton.innerHTML = `
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-              </svg>
-              <span class="hidden sm:inline">Cerrar Sesión</span>
-            `;
-          }
-        } catch (error) {
-          console.error('Error inesperado al cerrar sesión:', error);
-          // En caso de error, forzar la redirección
-          window.location.href = '/login';
+    // Cancelar logout
+    if (cancelButton && logoutModal) {
+      cancelButton.addEventListener('click', () => {
+        closeModal();
+      });
+    }
+
+    // Cerrar modal al hacer click fuera
+    if (logoutModal) {
+      logoutModal.addEventListener('click', (e) => {
+        if (e.target === logoutModal) {
+          closeModal();
         }
       });
+    }
+
+    // Confirmar logout
+    if (confirmButton) {
+      confirmButton.addEventListener('click', async () => {
+        await performLogout();
+      });
+    }
+
+    // Cerrar modal con ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !logoutModal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    function closeModal() {
+      logoutModal.classList.add('hidden');
+      document.body.style.overflow = ''; // Restaurar scroll
+      resetButton();
+    }
+
+    function resetButton() {
+      if (logoutText && logoutSpinner && confirmButton) {
+        confirmButton.disabled = false;
+        logoutText.classList.remove('hidden');
+        logoutSpinner.classList.add('hidden');
+      }
+    }
+
+    async function performLogout() {
+      try {
+        // Mostrar estado de carga
+        if (confirmButton && logoutText && logoutSpinner) {
+          confirmButton.disabled = true;
+          logoutText.classList.add('hidden');
+          logoutSpinner.classList.remove('hidden');
+        }
+
+        // Limpiar datos locales
+        clearLocalData();
+
+        const result = await logout();
+        
+        if (result.success) {
+          // Pequeño delay para mostrar el estado de carga
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          // Redirigir al login después del logout exitoso
+          window.location.href = '/login';
+        } else {
+          console.error('Error al cerrar sesión:', result.error);
+          showErrorToast('Error al cerrar sesión. Inténtalo de nuevo.');
+          resetButton();
+        }
+      } catch (error) {
+        console.error('Error inesperado al cerrar sesión:', error);
+        showErrorToast('Error inesperado. Redirigiendo al login...');
+        
+        // En caso de error, forzar la redirección después de un breve delay
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+      }
+    }
+
+    function clearLocalData() {
+      // Limpiar localStorage y sessionStorage
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch (e) {
+        console.warn('No se pudieron limpiar los datos locales:', e);
+      }
+    }
+
+    function showErrorToast(message: string) {
+      if (errorToast) {
+        const errorMessage = document.getElementById('error-message');
+        if (errorMessage) {
+          errorMessage.textContent = message;
+        }
+        
+        errorToast.classList.remove('hidden');
+        
+        // Auto-hide después de 3 segundos
+        setTimeout(() => {
+          errorToast.classList.add('hidden');
+        }, 3000);
+      }
     }
   });
 </script>

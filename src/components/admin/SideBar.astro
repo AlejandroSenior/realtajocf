@@ -60,6 +60,22 @@
       sidebar?.classList.add('-translate-x-full');
     }
   });
+
+  // Sidebar logout button - trigger the same modal as navbar
+  const sidebarLogoutButton = document.getElementById('sidebar-logout-button');
+  if (sidebarLogoutButton) {
+    sidebarLogoutButton.addEventListener('click', () => {
+      // Trigger the navbar logout button click to use the same modal
+      const navbarLogoutButton = document.getElementById('logout-button');
+      if (navbarLogoutButton) {
+        navbarLogoutButton.click();
+      } else {
+        // Fallback: redirect directly to login if navbar button not found
+        console.warn('Navbar logout button not found, redirecting to login');
+        window.location.href = '/login';
+      }
+    });
+  }
 </script>
 
 <div
@@ -150,7 +166,7 @@
 
   <!-- Logout Button -->
   <div class="absolute bottom-4 left-4 right-4">
-    <button class="w-full flex items-center px-4 py-3 rounded-lg bg-red-600 hover:bg-red-700 transition-colors">
+    <button id="sidebar-logout-button" class="w-full flex items-center px-4 py-3 rounded-lg bg-red-600 hover:bg-red-700 transition-colors cursor-pointer">
       <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
           stroke-linecap="round"
