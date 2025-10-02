@@ -5,6 +5,7 @@ import LeaderBoard from '@/components/LeaderBoard.vue';
 import LastMatch from '@/components/LastMatch.vue';
 import Calendar from '@/components/Calendar.vue';
 import Hero from '@/components/Hero.astro';
+import Footer from '@/components/Footer.astro';
 ---
 
 <Layout>
@@ -32,52 +33,5 @@ import Hero from '@/components/Hero.astro';
     </Calendar>
   </div>
 
-  <footer class="relative mt-15">
-    <div class="flex items-center justify-center py-15 text-sm text-white text-center">
-      <div class="mx-auto">
-        <span>
-          &copy; {new Date().getFullYear()} Real Tajo C.F.
-        </span>
-
-        <div class="flex items-end text-xs">
-          <a
-            href="https://github.com/AlejandroSenior"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center mt-2 justify-center"
-          >
-            <span class="font-sans mr-2">Alejandro Senior</span>
-            <img src="/github.svg" alt="GitHub Alejandro Senior" class="w-5" />
-          </a>
-          <span class="mx-2">/</span>
-          <a
-            href="https://github.com/JaviLianes8"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center mt-2 justify-center"
-          >
-            <span class="font-sans mr-2">Javier Lianes</span>
-            <img src="/github.svg" alt="GitHub Javier Lianes" class="w-5" />
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </footer>
-
-  <!-- Sticky Instagram Link -->
-  <a 
-    href="http://instagram.com/realtajocf" 
-    target="_blank" 
-    rel="noopener noreferrer" 
-    class="fixed bottom-4 right-4 z-50 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-  >
-    <img src="/ig.svg" alt="Instagram" class="size-7 md:size-10" />
-  </a>
+  <Footer />
 </Layout>
-
-<style>
-  footer {
-    background: linear-gradient(to bottom, white 0%, var(--color-primary) 100%);
-  }
-</style>
