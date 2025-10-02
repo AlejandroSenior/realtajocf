@@ -16,7 +16,7 @@ import Hero from '@/components/Hero.astro';
   <div class="max-w-7xl mx-auto">
     <LastMatch />
 
-    <NextMatch />
+    <!-- <NextMatch /> -->
 
     <LeaderBoard client:only="vue">
       <template #fallback>
@@ -30,4 +30,33 @@ import Hero from '@/components/Hero.astro';
       </template>
     </Calendar>
   </div>
+
+  <footer class="relative mt-15">
+    <div class="flex items-center justify-center py-15 text-sm text-white">
+      <div class="mx-auto">
+        <span>
+          &copy; {new Date().getFullYear()} Real Tajo C.F.
+        </span>
+
+        <a
+          href="https://github.com/AlejandroSenior"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center mt-2 justify-center"
+        >
+          <span class="font-sans mr-2">Alejandro Senior</span>
+          <img src="/github.svg" alt="GitHub Alejandro Senior" />
+        </a>
+      </div>
+      <a href="http://instagram.com/realtajocf" target="_blank" rel="noopener noreferrer" class="absolute right-0 mr-4">
+        <img src="/ig.svg" alt="Instagram" class="w-10 md:w-12" />
+      </a>
+    </div>
+  </footer>
 </Layout>
+
+<style>
+  footer {
+    background: linear-gradient(to bottom, white 0%, var(--color-primary) 100%);
+  }
+</style>
