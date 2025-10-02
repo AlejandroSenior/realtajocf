@@ -50,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="calendar-wrapper mt-10 max-lg:p-5">
+  <div class="calendar-wrapper mt-20 max-lg:p-5">
     <!-- Loading state -->
     <div v-if="loading" class="loading-message">
       <p>Cargando calendario...</p>
