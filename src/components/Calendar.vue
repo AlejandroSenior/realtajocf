@@ -25,7 +25,7 @@ const fetchCalendar = async () => {
     loading.value = true;
     error.value = null;
 
-    const response = await fetch('https://realtajoback-b8a4dxbxdkhtgham.westeurope-01.azurewebsites.net/api/v1/real-tajo/calendar', {
+    const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/real-tajo/calendar`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });

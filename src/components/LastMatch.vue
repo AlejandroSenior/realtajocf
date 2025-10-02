@@ -9,7 +9,7 @@ const lastMatch = ref<Match | null>(null);
 
 // Función para hacer la petición a la API
 const fetchCalendar = async (): Promise<CalendarResponse> => {
-  const response = await fetch('https://realtajoback-b8a4dxbxdkhtgham.westeurope-01.azurewebsites.net/api/v1/real-tajo/calendar');
+  const response = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/real-tajo/calendar`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
