@@ -37,8 +37,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="my-10 mx-auto max-lg:p-5">
-    <h2 class="text-center text-2xl font-bold text-secondary mb-5">Clasificación Liga 2025/26</h2>
+  <div class="mt-20 mx-auto max-lg:p-5">
+    <h2 class="text-center text-2xl font-bold text-secondary mb-5">Clasificación</h2>
 
     <div v-if="loading" class="text-center py-8">
       <p class="text-lg">Cargando clasificación...</p>
@@ -50,29 +50,23 @@ onMounted(() => {
 
     <table v-else-if="clasificacion.length > 0">
       <thead>
-        <tr>
+        <tr class="max-md:text-sm">
           <th>Pos</th>
-          <th>Equipo</th>
-          <th>J</th>
-          <th>G</th>
-          <th>E</th>
-          <th>P</th>
+          <th>Club</th>
+          <th>Pts</th>
           <th>GF</th>
           <th>GC</th>
-          <th>Pts</th>
+          <th>PJ</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="equipo in clasificacion" :key="equipo.position">
           <td class="text-center">{{ equipo.position }}</td>
-          <td>{{ equipo.team }}</td>
-          <td>{{ equipo.matches.played }}</td>
-          <td>{{ equipo.matches.wins }}</td>
-          <td>{{ equipo.matches.draws }}</td>
-          <td>{{ equipo.matches.losses }}</td>
+          <td class="max-md:text-xs max-w-[100px]">{{ equipo.team }}</td>
+          <td>{{ equipo.points }}</td>
           <td>{{ equipo.goals.for }}</td>
           <td>{{ equipo.goals.against }}</td>
-          <td class="font-bold">{{ equipo.points }}</td>
+          <td>{{ equipo.matches.played }}</td>
         </tr>
       </tbody>
     </table>
@@ -87,12 +81,12 @@ onMounted(() => {
 table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 20px;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
-th,
-td {
-  border: 2px solid #000;
+tr:nth-child(odd) {
+  background-color: #f9f9f9;
 }
 
 th {
@@ -105,12 +99,7 @@ th {
 
 td {
   padding: 10px 8px;
-  border-bottom: 1px solid #eee;
   text-align: center;
-}
-
-tr:last-child {
-  border-bottom: 2px solid #000;
 }
 
 @media (max-width: 768px) {
