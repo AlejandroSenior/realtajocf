@@ -7,28 +7,22 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
-      <h2 id="page-title" class="text-2xl font-semibold text-gray-800 ml-4 lg:ml-0">Dashboard</h2>
     </div>
 
-    <div class="flex items-center space-x-4">
-      <!-- Notifications -->
-      <button class="p-2 rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-100">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zm-5-10a5 5 0 110 10 5 5 0 010-10z">
+    <div class="flex items-center">
+      <!-- Logout Button -->
+      <button id="logout-button" class="flex items-center rounded-md text-red-600 hover:text-red-800 hover:bg-red-50 transition-colors">
+        <span class="hidden sm:inline sm:mr-2">Cerrar Sesión</span>
+        <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          >
           </path>
         </svg>
       </button>
-
-      <!-- Logout Button -->
-      <button id="logout-button" class="flex items-center space-x-2 px-3 py-2 rounded-md text-red-600 hover:text-red-800 hover:bg-red-50 transition-colors">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-        </svg>
-        <span class="hidden sm:inline">Cerrar Sesión</span>
-      </button>
-
-      <!-- User Avatar -->
-      <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-semibold">A</div>
     </div>
   </div>
 </header>
@@ -40,23 +34,38 @@
       <div class="flex items-center mb-4">
         <div class="p-2 bg-red-100 rounded-full mr-3">
           <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+            >
+            </path>
           </svg>
         </div>
         <h3 class="text-lg font-semibold text-gray-900">Cerrar Sesión</h3>
       </div>
-      
+
       <p class="text-gray-600 mb-6">¿Estás seguro de que quieres cerrar sesión? Serás redirigido a la página de login.</p>
-      
+
       <div class="flex space-x-3">
-        <button id="cancel-logout" class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+        <button
+          id="cancel-logout"
+          class="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
+        >
           Cancelar
         </button>
         <button id="confirm-logout" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
           <span class="logout-text">Cerrar Sesión</span>
           <span class="logout-spinner hidden">
             <svg class="w-4 h-4 animate-spin inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              >
+              </path>
             </svg>
             Cerrando...
           </span>
@@ -87,7 +96,7 @@
     const errorToast = document.getElementById('error-toast') as HTMLDivElement;
     const logoutText = document.querySelector('.logout-text') as HTMLSpanElement;
     const logoutSpinner = document.querySelector('.logout-spinner') as HTMLSpanElement;
-    
+
     // Mostrar modal de confirmación
     if (logoutButton && logoutModal) {
       logoutButton.addEventListener('click', () => {
@@ -153,11 +162,11 @@
         clearLocalData();
 
         const result = await logout();
-        
+
         if (result.success) {
           // Pequeño delay para mostrar el estado de carga
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
+          await new Promise((resolve) => setTimeout(resolve, 500));
+
           // Redirigir al login después del logout exitoso
           window.location.href = '/login';
         } else {
@@ -168,7 +177,7 @@
       } catch (error) {
         console.error('Error inesperado al cerrar sesión:', error);
         showErrorToast('Error inesperado. Redirigiendo al login...');
-        
+
         // En caso de error, forzar la redirección después de un breve delay
         setTimeout(() => {
           window.location.href = '/login';
@@ -192,9 +201,9 @@
         if (errorMessage) {
           errorMessage.textContent = message;
         }
-        
+
         errorToast.classList.remove('hidden');
-        
+
         // Auto-hide después de 3 segundos
         setTimeout(() => {
           errorToast.classList.add('hidden');
