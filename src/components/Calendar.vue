@@ -44,6 +44,17 @@ const fetchCalendar = async () => {
   }
 };
 
+const cutClubNames = (name: string) => {
+  switch (name) {
+    case 'AMG-ASESORIA JURIDICA- EXCAVACIONES TAJO':
+      return 'AMG-ASESORIA';
+    case 'LA VESPA TAPAS-CLUB ATLETICO DE ARANJUEZ':
+      return 'LA VESPA';
+    default:
+      return name;
+  }
+};
+
 onMounted(() => {
   fetchCalendar();
 });
@@ -70,7 +81,7 @@ onMounted(() => {
           <div v-for="match in nextThreeMatches" :key="`${match.matchday}-${match.date}`"
             class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary">
             <div class="flex justify-between items-center">
-              <span class="">Jornada {{ match.matchday }}</span>
+              <span>Jornada {{ match.matchday }}</span>
               <span>
                 {{ match.is_home ? 'Local' : 'Visitante' }}
               </span>
@@ -85,25 +96,22 @@ onMounted(() => {
                 })
               }}
               <br />
-              {{
-                new Date(match.date).toLocaleTimeString('es-ES', {
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })
-              }}
+              {{ match.time ?? '--:--' }}
             </div>
 
             <div class="flex mx-auto items-center">
-              <span class="max-w-[150px] text-center">
-                {{ match.is_home ? 'Real Tajo CF' : match.opponent }}
+              <span class="max-w-[150px] text-center bg-primary-100 rounded-full px-2 py-1">
+                {{ match.is_home ? cutClubNames('Real Tajo CF') : cutClubNames(match.opponent) }}
               </span>
 
               <span class="mx-5">VS</span>
 
-              <span class="max-w-[150px] text-center">
-                {{ match.is_home ? match.opponent : 'Real Tajo CF' }}
+              <span class="max-w-[150px] text-center bg-secondary/40 rounded-full px-2 py-1">
+                {{ match.is_home ? cutClubNames(match.opponent) : cutClubNames('Real Tajo CF') }}
               </span>
             </div>
+
+            <p class="text-center">{{ match.field }}</p>
           </div>
         </div>
       </div>

@@ -5,11 +5,22 @@ export interface CalendarResponse {
 }
 
 export interface Match {
-  stage: Stage;
+  stage: string;
   matchday: number;
-  date: Date;
+  date: string;
   opponent: string;
   is_home: boolean;
+  time: string;
+  field: string;
+}
+
+export interface LastMatch {
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  date: string;
+  isBye: boolean;
 }
 
 export enum Stage {
