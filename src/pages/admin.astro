@@ -1,7 +1,8 @@
 ---
 import AdminLayout from '@/layouts/Admin.astro';
+import FileUpload from '@/components/admin/FileUpload.vue';
 ---
 
 <AdminLayout>
-  <h1 class="text-3xl font-bold underline">Admin Page</h1>
+  <FileUpload client:load />
 </AdminLayout>
