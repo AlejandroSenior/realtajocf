@@ -74,9 +74,7 @@ const handleDrop = (e: DragEvent, uploadType: UploadType): void => {
 const handleFileSelect = (e: Event, uploadType: UploadType): void => {
   const target = e.target as HTMLInputElement
   const file = target.files?.[0]
-  if (file) {
-    processFile(file, uploadType)
-  }
+  if (file) processFile(file, uploadType)
 }
 
 const getUploadTypeFromTarget = (target: HTMLElement): UploadType | null => {
@@ -94,9 +92,9 @@ const getUploadTypeFromTarget = (target: HTMLElement): UploadType | null => {
 }
 
 const processFile = (file: File, uploadType: UploadType): void => {
-  // Validar que sea un PDF
-  if (file.type !== 'application/pdf') {
-    uploadStates[uploadType].error = 'Por favor, selecciona un archivo PDF'
+  // Validar que sea un PDF o Excel
+  if (file.type !== 'application/pdf' && file.type !== 'application/vnd.ms-excel' && file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    uploadStates[uploadType].error = 'Por favor, selecciona un archivo PDF o Excel'
     return
   }
 
@@ -270,8 +268,8 @@ const uploadFile = async (file: File, uploadType: UploadType): Promise<void> => 
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
           </svg>
           <h3 class="upload-title">Goleadores</h3>
-          <p class="upload-text">Arrastra el PDF de goleadores aquí</p>
-          <input type="file" ref="topScorersInput" @change="handleFileSelect($event, 'topScorers')" accept=".pdf"
+          <p class="upload-text">Arrastra el Excel de goleadores aquí</p>
+          <input type="file" ref="topScorersInput" @change="handleFileSelect($event, 'topScorers')" accept=".xls"
             class="hidden">
           <button @click="topScorersInput?.click()" class="upload-button">
             Seleccionar archivo
