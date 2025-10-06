@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import TeamCarousel from '@/components/TeamCarousel.astro';
 import LeaderBoard from '@/components/LeaderBoard.vue';
+import TopScorers from '@/components/TopScorers.vue';
 import LastMatch from '@/components/LastMatch.vue';
 import Calendar from '@/components/Calendar.vue';
 import Hero from '@/components/Hero.astro';
@@ -25,6 +26,12 @@ import Footer from '@/components/Footer.astro';
         <div>Cargando clasificación...</div>
       </template>
     </LeaderBoard>
+
+    <TopScorers client:only="vue">
+      <template #fallback>
+        <div>Cargando estadísticas de goleadores...</div>
+      </template>
+    </TopScorers>
 
     <Calendar client:only="vue">
       <template #fallback>
