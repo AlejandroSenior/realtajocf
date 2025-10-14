@@ -1,6 +1,7 @@
 ---
-import '@/styles/global.css';
+import '@/global.css';
 import '@fontsource/graduate';
+const { title = 'Real Tajo C.F.' } = Astro.props;
 ---
 
 <!doctype html>
@@ -12,7 +13,7 @@ import '@fontsource/graduate';
     <link rel="icon" type="image" href="/escudo.avif" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <title>Real Tajo C.F.</title>
+    <title>{title}</title>
   </head>
   <body>
     <slot />
