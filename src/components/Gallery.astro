@@ -1,0 +1,31 @@
+---
+// Gallery.astro - Bento grid with 3 rows and 5 columns
+---
+
+<section class="p-6">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    {
+      Array.from({ length: 12 }).map((_, index) => (
+        <img
+          src="https://arthurmillerfoundation.org/wp-content/uploads/2018/06/default-placeholder.png"
+          alt={`Gallery Image ${index + 1}`}
+          class="bento-item rounded-2xl"
+        />
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .bento-item {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .bento-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+</style>
