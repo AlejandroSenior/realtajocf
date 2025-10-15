@@ -24,7 +24,6 @@ const fetchClasificacion = async () => {
   } catch (err) {
     console.error('Error al obtener la clasificación:', err);
     error.value = 'Error al cargar la clasificación';
-    // Datos de respaldo en caso de error
     clasificacion.value = [];
   } finally {
     loading.value = false;
@@ -48,7 +47,7 @@ onMounted(() => {
       <p class="text-red-500 text-lg">{{ error }}</p>
     </div>
 
-    <table v-else-if="clasificacion.length > 0">
+    <table v-else-if="clasificacion.length > 0" class="shadow-lg">
       <thead>
         <tr class="max-md:text-sm">
           <th>Pos</th>

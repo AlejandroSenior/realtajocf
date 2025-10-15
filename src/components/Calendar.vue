@@ -11,12 +11,10 @@ const nextThreeMatches = computed(() => {
 
   const currentDate = new Date();
 
-  // Filtrar partidos futuros y ordenarlos por fecha
   const upcomingMatches = calendar.value.matches
     .filter((match) => new Date(match.date) >= currentDate)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  // Devolver solo los primeros 3
   return upcomingMatches.slice(0, 3);
 });
 
@@ -63,7 +61,7 @@ onMounted(() => {
 <template>
   <div class="calendar-wrapper mt-20 max-lg:p-5">
     <!-- Loading state -->
-    <div v-if="!loading" class="text-center">
+    <div v-if="loading" class="text-center">
       <p>Cargando calendario...</p>
     </div>
 
@@ -78,11 +76,8 @@ onMounted(() => {
 
       <div v-if="nextThreeMatches.length > 0">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div
-            v-for="match in nextThreeMatches"
-            :key="`${match.matchday}-${match.date}`"
-            class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary"
-          >
+          <div v-for="match in nextThreeMatches" :key="`${match.matchday}-${match.date}`"
+            class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary">
             <div class="flex justify-between items-center">
               <span>Jornada {{ match.matchday }}</span>
               <span>

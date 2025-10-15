@@ -15,7 +15,7 @@ const players = [
   { name: 'Coke', image: '/images/players/coke.webp' },
   { name: 'Marín Jr', image: '/images/players/marin-jr.webp' },
   { name: 'Pallero', image: '/images/players/pallero.webp' },
-  { name: 'J. Gil', image: '/images/players/gil.webp' },
+  { name: 'Gil', image: '/images/players/gil.webp' },
   { name: 'Lianes', image: '/images/players/lianes.webp' },
   { name: 'Pacheco', image: '/images/players/pacheco.webp' }
 ];
@@ -56,7 +56,7 @@ const players = [
         .slice()
         .sort(() => Math.random() - 0.5)
         .map((player) => (
-          <div class="swiper-slide border-5 border-primary rounded-3xl shadow-xl bg-white max-w-[200px] md:max-w-[400px] aspect-[3/4] relative overflow-hidden">
+          <div class="swiper-slide border-5 border-secondary rounded-3xl bg-white max-w-[200px] md:max-w-[400px] aspect-[3/4] relative overflow-hidden">
             <img src={player.image} alt={player.name} class="w-full h-full object-cover" />
             <div class="player-info absolute bottom-0 left-0 right-0 h-[33%] flex items-end justify-center pb-3">
               <div class="text-sm md:text-5xl text-white text-center font-bold mb-5">{player.name}</div>

@@ -20,7 +20,6 @@ const fetchTopScorers = async () => {
     }
 
     const data: { rows: PlayerStats[] } = await response.json();
-    console.log(data.rows);
     players.value = data.rows.filter(player => player.team === "REAL TAJO");
   } catch (err) {
     console.error('Error al obtener los goleadores:', err);
@@ -29,12 +28,6 @@ const fetchTopScorers = async () => {
   } finally {
     loading.value = false;
   }
-};
-
-const getPlayerImage = (player: PlayerStats) => {
-  // Si el jugador tiene una imagen específica, la usamos, sino usamos la por defecto
-  // if (player.image) return `/images/players/${player.image}`;
-  return '/images/players/default.webp';
 };
 
 onMounted(() => {
@@ -58,7 +51,7 @@ onMounted(() => {
 
 
     <div v-else-if="players.length > 0">
-      <table class="stats-table">
+      <table class="stats-table shadow-lg">
         <thead>
           <tr class="max-md:text-sm">
             <th class="player-column">Jugador</th>
@@ -121,7 +114,6 @@ onMounted(() => {
   border-collapse: collapse;
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .stats-table tr:nth-child(odd) {
