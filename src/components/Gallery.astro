@@ -1,31 +1,294 @@
 ---
-// Gallery.astro - Bento grid with 3 rows and 5 columns
+import { CldImage } from 'astro-cloudinary';
+import { getCollection } from 'astro:content';
+
+const assets = await getCollection('assets');
+
+// Dividir las imágenes en 3 grupos
+const chunkSize = Math.ceil(assets.length / 3);
+const carousel1 = assets.slice(0, chunkSize);
+const carousel2 = assets.slice(chunkSize, chunkSize * 2);
+const carousel3 = assets.slice(chunkSize * 2);
 ---
 
-<section class="p-6">
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    {
-      Array.from({ length: 12 }).map((_, index) => (
-        <img
-          src="https://arthurmillerfoundation.org/wp-content/uploads/2018/06/default-placeholder.png"
-          alt={`Gallery Image ${index + 1}`}
-          class="bento-item rounded-2xl"
-        />
-      ))
-    }
+<script>
+  import Swiper from 'swiper';
+  import { Autoplay } from 'swiper/modules';
+
+  const initSwipers = () => {
+    // Carousel 1 - Derecha
+    new Swiper('.carousel1', {
+      modules: [Autoplay],
+      loop: true,
+      spaceBetween: 20,
+      slidesPerView: 'auto',
+      centeredSlides: false,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: false,
+        reverseDirection: false
+      },
+      speed: 3000,
+      allowTouchMove: false,
+      freeMode: true
+    });
+
+    // Carousel 2 - Izquierda
+    new Swiper('.carousel2', {
+      modules: [Autoplay],
+      loop: true,
+      spaceBetween: 20,
+      slidesPerView: 'auto',
+      centeredSlides: false,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: false,
+        reverseDirection: true
+      },
+      speed: 3000,
+      allowTouchMove: false,
+      freeMode: true
+    });
+
+    // Carousel 3 - Derecha
+    new Swiper('.carousel3', {
+      modules: [Autoplay],
+      loop: true,
+      spaceBetween: 20,
+      slidesPerView: 'auto',
+      centeredSlides: false,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: false,
+        reverseDirection: false
+      },
+      speed: 3000,
+      allowTouchMove: false,
+      freeMode: true
+    });
+  };
+
+  const destroyAllSwipers = () => {
+    ['.carousel1', '.carousel2', '.carousel3'].forEach((selector) => {
+      const swiperElement = document.querySelector(selector) as any;
+      if (swiperElement?.swiper) swiperElement.swiper.destroy(true, true);
+    });
+  };
+
+  window.addEventListener('load', initSwipers);
+  window.addEventListener('resize', () => {
+    destroyAllSwipers();
+    setTimeout(initSwipers, 100);
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('imageModal') as HTMLElement;
+    const modalImage = document.getElementById('modalImage') as HTMLImageElement;
+    const closeBtn = document.getElementById('closeModal') as HTMLElement;
+    const imageContainers = document.querySelectorAll('[data-image-url]');
+
+    imageContainers.forEach((container: any) => {
+      container.addEventListener('click', () => {
+        const imageUrl = container.dataset.imageUrl;
+        const imageIndex = container.dataset.imageIndex;
+
+        modalImage.src = imageUrl;
+        modalImage.alt = `Gallery Image ${parseInt(imageIndex) + 1}`;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+  });
+</script>
+
+<div class="mt-15 lg:mt-32 space-y-4 py-8 relative">
+  <!-- Carousel 1 - Derecha -->
+  <div class="carousel-container relative">
+    <div class="swiper carousel1 overflow-hidden">
+      <div class="swiper-wrapper">
+        {
+          carousel1.map((asset, index) => (
+            <div class="swiper-slide">
+              <div class="slide-card">
+                <CldImage
+                  src={asset.data.secure_url}
+                  data-image-url={asset.data.secure_url}
+                  data-image-index={index}
+                  alt="Real Tajo C.F gallery image"
+                  class="slide-image"
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class="fade-overlay"></div>
   </div>
-</section>
+
+  <!-- Carousel 2 - Izquierda -->
+  <div class="carousel-container relative">
+    <div class="swiper carousel2 overflow-hidden">
+      <div class="swiper-wrapper">
+        {
+          carousel2.map((asset, index) => (
+            <div class="swiper-slide">
+              <div class="slide-card">
+                <CldImage
+                  src={asset.data.secure_url}
+                  data-image-url={asset.data.secure_url}
+                  data-image-index={index}
+                  alt="Real Tajo C.F gallery image"
+                  class="slide-image"
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class="fade-overlay"></div>
+  </div>
+
+  <!-- Carousel 3 - Derecha -->
+  <div class="carousel-container relative">
+    <div class="swiper carousel3 overflow-hidden">
+      <div class="swiper-wrapper">
+        {
+          carousel3.map((asset, index) => (
+            <div class="swiper-slide">
+              <div class="slide-card">
+                <CldImage
+                  src={asset.data.secure_url}
+                  data-image-url={asset.data.secure_url}
+                  data-image-index={index}
+                  alt="Real Tajo C.F gallery image"
+                  class="slide-image"
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class="fade-overlay"></div>
+  </div>
+</div>
+
+<!-- Modal para la imagen ampliada -->
+<div id="imageModal" class="fixed inset-0 bg-black/65 bg-opacity-90 z-50 hidden items-center justify-center p-4">
+  <div class="relative w-auto h-auto max-w-4xl max-h-screen">
+    <button id="closeModal" class="hidden">×</button>
+    <img id="modalImage" src="" alt="" class="w-full h-full object-contain rounded-2xl" />
+  </div>
+</div>
 
 <style>
-  .bento-item {
+  .carousel-container {
+    position: relative;
+  }
+
+  .fade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.8) 5%,
+      rgba(255, 255, 255, 0) 15%,
+      rgba(255, 255, 255, 0) 85%,
+      rgba(255, 255, 255, 0.8) 95%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  }
+
+  .slide-card {
+    border-radius: 12px;
+    background: white;
+    width: 5rem;
+    height: 7rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
     transition:
       transform 0.3s ease,
       box-shadow 0.3s ease;
     position: relative;
   }
 
-  .bento-item:hover {
+  .slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .swiper-slide {
+    transition: transform 0.3s ease;
+    width: auto !important;
+  }
+
+  .slide-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Asegurar que las imágenes mantengan su tamaño */
+  .swiper-slide img {
+    transition: transform 0.3s ease;
+  }
+
+  /* Hacer el movimiento más suave y continuo */
+  .swiper-wrapper {
+    transition-timing-function: linear !important;
+  }
+
+  @media (width >= 768px) {
+    .slide-card {
+      width: 15rem;
+      height: 20rem;
+    }
+  }
+
+  /* Ajustar el fade para diferentes fondos */
+  @media (prefers-color-scheme: dark) {
+    .fade-overlay {
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0.8) 5%,
+        rgba(255, 255, 255, 0) 15%,
+        rgba(255, 255, 255, 0) 85%,
+        rgba(255, 255, 255, 0.8) 95%,
+        rgba(255, 255, 255, 1) 100%
+      );
+    }
   }
 </style>
