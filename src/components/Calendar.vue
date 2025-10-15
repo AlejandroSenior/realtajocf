@@ -13,7 +13,7 @@ const nextThreeMatches = computed(() => {
 
   // Filtrar partidos futuros y ordenarlos por fecha
   const upcomingMatches = calendar.value.matches
-    .filter(match => new Date(match.date) >= currentDate)
+    .filter((match) => new Date(match.date) >= currentDate)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   // Devolver solo los primeros 3
@@ -63,12 +63,12 @@ onMounted(() => {
 <template>
   <div class="calendar-wrapper mt-20 max-lg:p-5">
     <!-- Loading state -->
-    <div v-if="loading" class="loading-message">
+    <div v-if="!loading" class="text-center">
       <p>Cargando calendario...</p>
     </div>
 
     <!-- Error state -->
-    <div v-else-if="error" class="error-message">
+    <div v-else-if="error">
       <p>Error al cargar el calendario: {{ error }}</p>
     </div>
 
@@ -78,8 +78,11 @@ onMounted(() => {
 
       <div v-if="nextThreeMatches.length > 0">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div v-for="match in nextThreeMatches" :key="`${match.matchday}-${match.date}`"
-            class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary">
+          <div
+            v-for="match in nextThreeMatches"
+            :key="`${match.matchday}-${match.date}`"
+            class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary"
+          >
             <div class="flex justify-between items-center">
               <span>Jornada {{ match.matchday }}</span>
               <span>
@@ -87,7 +90,7 @@ onMounted(() => {
               </span>
             </div>
 
-            <div class=" text-center">
+            <div class="text-center">
               {{
                 new Date(match.date).toLocaleDateString('es-ES', {
                   weekday: 'short',
