@@ -60,6 +60,8 @@ onMounted(() => {
 
 <template>
   <div class="calendar-wrapper mt-20 max-lg:p-5">
+    <h2 class="text-center text-2xl font-bold text-secondary mb-5">Próximos partidos</h2>
+
     <!-- Loading state -->
     <div v-if="loading" class="text-center">
       <p>Cargando calendario...</p>
@@ -72,12 +74,13 @@ onMounted(() => {
 
     <!-- Calendar content -->
     <div v-else-if="calendar">
-      <h2 class="text-center text-2xl font-bold text-secondary mb-5">Próximos partidos</h2>
-
       <div v-if="nextThreeMatches.length > 0">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div v-for="match in nextThreeMatches" :key="`${match.matchday}-${match.date}`"
-            class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary">
+          <div
+            v-for="match in nextThreeMatches"
+            :key="`${match.matchday}-${match.date}`"
+            class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary"
+          >
             <div class="flex justify-between items-center">
               <span>Jornada {{ match.matchday }}</span>
               <span>
