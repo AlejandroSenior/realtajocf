@@ -39,7 +39,7 @@ onMounted(() => {
   <div class="mt-20 mx-auto max-lg:p-5">
     <h2 class="text-center text-2xl font-bold text-secondary mb-5">Clasificación</h2>
 
-    <div v-if="loading" class="text-center py-8">
+    <div v-if="loading" class="text-center">
       <p class="text-lg">Cargando clasificación...</p>
     </div>
 

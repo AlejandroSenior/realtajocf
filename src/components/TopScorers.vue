@@ -41,11 +41,11 @@ onMounted(() => {
       Estadísticas
     </h2>
 
-    <div v-if="loading" class="text-center py-8">
+    <div v-if="loading" class="text-center">
       <p class="text-lg">Cargando estadísticas de goleadores...</p>
     </div>
 
-    <div v-else-if="error" class="text-center py-8">
+    <div v-else-if="error" class="text-center">
       <p class="text-red-500 text-lg">{{ error }}</p>
     </div>
 
