@@ -1,46 +1,32 @@
-# Astro Starter Kit: Basics
+<div align="center">
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+<strong><h1>Web Oficial del Real Tajo C.F.</h1></strong>
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+<br>
 
-## 🚀 Project Structure
+<a href="https://real-tajo-cf.web.app" target="_blank" rel="noopener noreferrer">
+  <img width="150px" height="auto" src="https://real-tajo-cf.web.app/escudo-without-bg.avif" alt="Logo" />
+</a>
 
-Inside of your Astro project, you'll see the following folders and files:
+</div>
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## 🚀 Tech Stack:
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+- [![Astro][astro-badge]][astro-url] - The web framework for content-driven websites.
+- [![Typescript][typescript-badge]][typescript-url] - JavaScript with syntax for types.
+- [![Tailwind CSS][tailwind-badge]][tailwind-url] - A utility-first CSS framework for rapidly building custom designs.
+- [![Firebase][firebase-badge]][firebase-url] - Backend platform providing authentication, database, hosting, and serverless functions.
+- [![Cloudinary][cloudinary-badge]][cloudinary-url] - Media management platform for optimizing, transforming, and delivering images and videos.
 
-## 🧞 Commands
+<!-- Tech Stack Links -->
+[astro-url]: https://astro.build/
+[typescript-url]: https://www.typescriptlang.org/
+[tailwind-url]: https://tailwindcss.com/
+[firebase-url]: https://firebase.google.com/
+[cloudinary-url]: https://cloudinary.com/
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+[astro-badge]: https://img.shields.io/badge/Astro-fff?style=for-the-badge&logo=astro&logoColor=bd303a&color=352563
+[typescript-badge]: https://img.shields.io/badge/Typescript-007ACC?style=for-the-badge&logo=typescript&logoColor=white&color=blue
+[tailwind-badge]: https://img.shields.io/badge/Tailwind-ffffff?style=for-the-badge&logo=tailwindcss&logoColor=38bdf8
+[firebase-badge]: https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black
+[cloudinary-badge]: https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=Cloudinary&logoColor=white
