@@ -29,12 +29,30 @@ import SideBar from '@/components/admin/SideBar.astro';
   import { getCurrentUser } from '@/firebase/client';
 
   document.addEventListener('DOMContentLoaded', async () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    const adminContent = document.getElementById('admin-content');
+
+    if (!loadingScreen || !adminContent) {
+      console.error('Elementos de UI no encontrados');
+      window.location.href = '/login';
+      return;
+    }
+
     try {
+      // Verificar si el usuario está autenticado
       const user = await getCurrentUser();
-      console.log(user);
-      if (!user) window.location.href = '/login';
+
+      if (user) {
+        // El usuario está autenticado, mostrar el contenido de admin
+        loadingScreen.style.display = 'none';
+        adminContent.style.display = 'flex';
+      } else {
+        // El usuario no está autenticado, redirigir al login
+        window.location.href = '/login';
+      }
     } catch (error) {
       console.error('Error verificando autenticación:', error);
+      // En caso de error, redirigir al login por seguridad
       window.location.href = '/login';
     }
   });
