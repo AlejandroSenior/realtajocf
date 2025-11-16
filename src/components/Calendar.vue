@@ -10,6 +10,7 @@ const nextThreeMatches = computed(() => {
   if (!calendar.value?.matches) return [];
 
   const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
 
   const upcomingMatches = calendar.value.matches
     .filter((match) => new Date(match.date) >= currentDate)
@@ -82,7 +83,7 @@ onMounted(() => {
             class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary"
           >
             <div class="flex justify-between items-center">
-              <span>Jornada {{ match.matchday }}</span>
+              <span>Jornada {{ match.stage !== 'Liga' ? `de ${match.stage}` : match.matchday }}</span>
               <span>
                 {{ match.is_home ? 'Local' : 'Visitante' }}
               </span>

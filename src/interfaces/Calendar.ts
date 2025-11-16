@@ -6,7 +6,7 @@ export interface CalendarResponse {
 
 export interface Match {
   stage: string;
-  matchday: number;
+  matchday: number | string;
   date: string;
   opponent: string;
   is_home: boolean;
