@@ -24,16 +24,24 @@ const players = [
   import Swiper from 'swiper';
   import { Autoplay } from 'swiper/modules';
 
-  const initSwiper = () => {
-    // Randomized the sort of slides in the client
+  let swiper: Swiper | null = null;
+  let resizeTimeout: NodeJS.Timeout;
+
+  const shuffleSlides = () => {
     const wrapper = document.querySelector('.swiper-wrapper') as HTMLElement;
     const slides = Array.from(wrapper.children);
     const shuffled = slides.sort(() => Math.random() - 0.5);
-
-    // Reorder slides
     shuffled.forEach((slide) => wrapper.appendChild(slide));
+  };
 
-    new Swiper('.mySwiper', {
+  const initSwiper = () => {
+    if (swiper) {
+      swiper.destroy(true, true);
+    }
+
+    shuffleSlides();
+
+    swiper = new Swiper('.mySwiper', {
       modules: [Autoplay],
       loop: true,
       spaceBetween: 40,
@@ -48,12 +56,17 @@ const players = [
     });
   };
 
+  const handleResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (swiper) {
+        swiper.update();
+      }
+    }, 250);
+  };
+
   window.addEventListener('load', initSwiper);
-  window.addEventListener('resize', () => {
-    const swiperElement = document.querySelector('.mySwiper') as any;
-    if (swiperElement?.swiper) swiperElement.swiper.destroy(true, true);
-    initSwiper();
-  });
+  window.addEventListener('resize', handleResize);
 </script>
 
 <div class="swiper mySwiper">

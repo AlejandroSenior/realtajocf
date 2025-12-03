@@ -15,9 +15,16 @@ const carousel3 = assets.slice(chunkSize * 2);
   import Swiper from 'swiper';
   import { Autoplay } from 'swiper/modules';
 
+  let swipers: Swiper[] = [];
+  let resizeTimeout: NodeJS.Timeout;
+
   const initSwipers = () => {
+    // Limpiar swipers existentes
+    swipers.forEach(swiper => swiper?.destroy?.(true, true));
+    swipers = [];
+
     // Carousel 1 - Derecha
-    new Swiper('.carousel1', {
+    const swiper1 = new Swiper('.carousel1', {
       modules: [Autoplay],
       loop: true,
       spaceBetween: 20,
@@ -35,7 +42,7 @@ const carousel3 = assets.slice(chunkSize * 2);
     });
 
     // Carousel 2 - Izquierda
-    new Swiper('.carousel2', {
+    const swiper2 = new Swiper('.carousel2', {
       modules: [Autoplay],
       loop: true,
       spaceBetween: 20,
@@ -53,7 +60,7 @@ const carousel3 = assets.slice(chunkSize * 2);
     });
 
     // Carousel 3 - Derecha
-    new Swiper('.carousel3', {
+    const swiper3 = new Swiper('.carousel3', {
       modules: [Autoplay],
       loop: true,
       spaceBetween: 20,
@@ -69,20 +76,23 @@ const carousel3 = assets.slice(chunkSize * 2);
       allowTouchMove: false,
       freeMode: true
     });
+
+    swipers = [swiper1, swiper2, swiper3];
   };
 
-  const destroyAllSwipers = () => {
-    ['.carousel1', '.carousel2', '.carousel3'].forEach((selector) => {
-      const swiperElement = document.querySelector(selector) as any;
-      if (swiperElement?.swiper) swiperElement.swiper.destroy(true, true);
-    });
+  const handleResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      swipers.forEach(swiper => {
+        if (swiper && !swiper.destroyed) {
+          swiper.update();
+        }
+      });
+    }, 250);
   };
 
   window.addEventListener('load', initSwipers);
-  window.addEventListener('resize', () => {
-    destroyAllSwipers();
-    setTimeout(initSwipers, 100);
-  });
+  window.addEventListener('resize', handleResize);
 
   document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('imageModal') as HTMLElement;
