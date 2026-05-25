@@ -118,8 +118,15 @@ onMounted(() => {
         </div>
       </div>
 
-      <div v-else>
-        <p>No hay partidos programados</p>
+      <div v-else class="text-center py-8">
+        <p class="text-lg font-semibold">
+          {{
+            calendar.season
+              ? `Liga ${calendar.season.replace('-', '/')} finalizada`
+              : 'Temporada finalizada'
+          }}
+        </p>
+        <p class="text-sm text-gray-500 mt-2">No quedan partidos programados</p>
       </div>
     </div>
 

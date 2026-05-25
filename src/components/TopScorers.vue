@@ -68,7 +68,7 @@ onMounted(() => {
               </div>
             </td>
             <td class="stat-goals">
-              <span class="stat-number">{{ player.goals.details }}</span>
+              <span class="stat-number">{{ player.goals.total }}</span>
             </td>
             <td class="max-md:hidden">{{ player.matches_played }}</td>
             <td class="max-md:hidden">{{ Math.max(player.goals_per_match).toFixed(2) }}</td>
@@ -87,7 +87,7 @@ onMounted(() => {
           <div class="mobile-stats-grid">
             <div class="mobile-stat">
               <span class="mobile-stat-label">Goles</span>
-              <span class="mobile-stat-value">{{ player.goals.details }}</span>
+              <span class="mobile-stat-value">{{ player.goals.total }}</span>
             </div>
             <div class="mobile-stat">
               <span class="mobile-stat-label">PJ</span>
