@@ -64,7 +64,7 @@ onMounted(fetchData);
 }
 
 .champion-badge {
-  background: linear-gradient(135deg, #ffd700, #f5b400);
+  background: linear-gradient(135deg, #ffd700, #f5b401);
   color: #1a1a1a;
   font-weight: 800;
   letter-spacing: 0.08em;
