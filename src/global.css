@@ -12,8 +12,113 @@
   --color-primary-500: #2b65c3;
   --color-primary-600: #204f9a;
   --color-primary-700: #153a75;
+  --color-primary-800: #0c2752;
   --color-primary: #0c2752;
   --color-primary-900: #06193a;
   --color-primary-950: #031029;
+
+  --color-secondary-300: #ecd49a;
+  --color-secondary-400: #ddb95f;
   --color-secondary: #cfa43c;
+  --color-secondary-600: #a87f24;
+
+  --color-night: #040b1c;
+  --color-night-soft: #081431;
+
+  --font-display: 'Bebas Neue', 'Graduate', sans-serif;
+  --font-body: 'Barlow', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-night);
+    color: #e8ecf6;
+    font-family: var(--font-body);
+    /* Atmósfera: glow dorado superior + degradado nocturno de fondo */
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(207, 164, 60, 0.13), transparent 70%),
+      linear-gradient(180deg, #061027 0%, #040b1c 100%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background-color: var(--color-secondary);
+    color: var(--color-night);
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+/* Tarjeta translúcida sobre fondo nocturno */
+@utility card-glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+/* Revelado al hacer scroll (activado por IntersectionObserver en Layout) */
+@layer components {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Cabecera de sección: eyebrow dorado + título display condensado */
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 2.5rem;
+    height: 2px;
+    background: var(--color-secondary);
+    /* corte diagonal tipo marcador */
+    clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: #f4f6fb;
+  }
 }

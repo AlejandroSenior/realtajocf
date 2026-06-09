@@ -2,44 +2,128 @@
 import SeasonBadge from './SeasonBadge.vue';
 ---
 
-<section>
-  <div class="bg-primary flex flex-col items-center justify-center py-20">
-    <h1 id="team-name" class="text-white text-center">Real Tajo C.F.</h1>
+<section class="hero relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-6 text-center">
+  <!-- texto gigante de fondo -->
+  <span aria-hidden="true" class="hero-ghost font-display select-none">TAJO</span>
 
-    <img id="crest" src="/escudo-without-bg.avif" alt="Escudo Real Tajo CF" class="w-21 md:w-36 mt-7" />
+  <p class="hero-item hero-kicker font-display text-secondary" style="--i: 0">Club de Fútbol &middot; Aranjuez</p>
 
+  <h1 id="team-name" class="hero-item font-display" style="--i: 1">
+    Real Tajo <span class="text-secondary">C.F.</span>
+  </h1>
+
+  <img
+    id="crest"
+    src="/escudo-without-bg.avif"
+    alt="Escudo Real Tajo CF"
+    class="hero-item mt-8 w-28 drop-shadow-[0_12px_40px_rgba(207,164,60,0.35)] md:w-40"
+    style="--i: 2"
+  />
+
+  <div class="hero-item" style="--i: 3">
     <SeasonBadge client:only="vue" />
   </div>
+
+  <!-- indicador de scroll -->
+  <a href="#ultimo-resultado" aria-label="Bajar al contenido" class="hero-item absolute bottom-8 left-1/2 -translate-x-1/2" style="--i: 4">
+    <span class="scroll-cue block h-10 w-6 rounded-full border-2 border-white/30"></span>
+  </a>
 </section>
 
 <style>
+  .hero {
+    /* líneas diagonales sutiles tipo bandera de córner */
+    background-image: repeating-linear-gradient(
+      -55deg,
+      transparent 0px,
+      transparent 60px,
+      rgba(255, 255, 255, 0.018) 60px,
+      rgba(255, 255, 255, 0.018) 120px
+    );
+  }
+
+  .hero-ghost {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(12rem, 38vw, 42rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.045);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .hero-kicker {
+    font-size: clamp(0.95rem, 2vw, 1.4rem);
+    letter-spacing: 0.45em;
+    text-indent: 0.45em; /* compensa el tracking para centrar visualmente */
+  }
+
   #team-name {
-    animation-duration: 3s;
-    animation-name: slide-in;
-    -webkit-text-stroke-width: clamp(1px, 2px, 4px);
-    -webkit-text-stroke-color: var(--color-secondary);
-    font-size: clamp(33px, 5vw, 120px);
+    font-size: clamp(4rem, 13vw, 11rem);
+    line-height: 0.92;
+    letter-spacing: 0.015em;
+    color: #f4f6fb;
+    text-shadow: 0 20px 60px rgba(3, 16, 41, 0.8);
   }
 
-  #crest {
-    animation-duration: 3s;
-    animation-name: slide-in;
+  /* entrada escalonada */
+  .hero-item {
+    animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 0.13s);
   }
 
-  @media (width <= 768px) {
-    #team-name {
-      -webkit-text-stroke-width: 0.7px;
-    }
-  }
-
-  @keyframes slide-in {
+  @keyframes hero-rise {
     from {
-      transform: translateY(2em);
+      transform: translateY(2.2em);
       opacity: 0;
     }
     to {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+
+  .scroll-cue {
+    position: relative;
+  }
+
+  .scroll-cue::after {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    width: 4px;
+    height: 8px;
+    margin-left: -2px;
+    border-radius: 999px;
+    background: var(--color-secondary);
+    animation: cue-drop 1.8s ease-in-out infinite;
+  }
+
+  @keyframes cue-drop {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    70% {
+      transform: translateY(12px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-item {
+      animation: none;
+    }
+    .scroll-cue::after {
+      animation: none;
     }
   }
 </style>

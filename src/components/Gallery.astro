@@ -134,7 +134,12 @@ const carousel3 = assets.slice(chunkSize * 2);
   });
 </script>
 
-<div class="mt-15 lg:mt-32 space-y-4 py-8 relative">
+<header class="section-header mx-auto max-w-6xl items-center px-5 text-center md:px-8">
+  <p class="section-eyebrow">Momentos</p>
+  <h2 class="section-title">Galería</h2>
+</header>
+
+<div class="space-y-4 py-4 relative">
   <!-- Carousel 1 - Derecha -->
   <div class="carousel-container relative">
     <div class="swiper carousel1 overflow-hidden">
@@ -231,18 +236,19 @@ const carousel3 = assets.slice(chunkSize * 2);
     z-index: 10;
     background: linear-gradient(
       to right,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.8) 5%,
-      rgba(255, 255, 255, 0) 15%,
-      rgba(255, 255, 255, 0) 85%,
-      rgba(255, 255, 255, 0.8) 95%,
-      rgba(255, 255, 255, 1) 100%
+      rgba(4, 11, 28, 1) 0%,
+      rgba(4, 11, 28, 0.8) 5%,
+      rgba(4, 11, 28, 0) 15%,
+      rgba(4, 11, 28, 0) 85%,
+      rgba(4, 11, 28, 0.8) 95%,
+      rgba(4, 11, 28, 1) 100%
     );
   }
 
   .slide-card {
     border-radius: 12px;
-    background: white;
+    background: var(--color-night-soft);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     width: 5rem;
     height: 7rem;
     position: relative;
@@ -250,8 +256,8 @@ const carousel3 = assets.slice(chunkSize * 2);
     cursor: pointer;
     transition:
       transform 0.3s ease,
-      box-shadow 0.3s ease;
-    position: relative;
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
   }
 
   .slide-image {
@@ -267,7 +273,8 @@ const carousel3 = assets.slice(chunkSize * 2);
 
   .slide-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: rgba(207, 164, 60, 0.5);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   }
 
   /* Asegurar que las imágenes mantengan su tamaño */
@@ -287,18 +294,4 @@ const carousel3 = assets.slice(chunkSize * 2);
     }
   }
 
-  /* Ajustar el fade para diferentes fondos */
-  @media (prefers-color-scheme: dark) {
-    .fade-overlay {
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0.8) 5%,
-        rgba(255, 255, 255, 0) 15%,
-        rgba(255, 255, 255, 0) 85%,
-        rgba(255, 255, 255, 0.8) 95%,
-        rgba(255, 255, 255, 1) 100%
-      );
-    }
-  }
 </style>

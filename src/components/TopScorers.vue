@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import type { PlayerStats } from '@/interfaces/PlayerStats';
 
 const players = ref<PlayerStats[]>([]);
 const loading = ref(true);
 const error = ref<string | null>(null);
+
+const maxGoals = computed(() =>
+  players.value.reduce((max, player) => Math.max(max, player.goals.total), 0)
+);
 
 const fetchTopScorers = async () => {
   try {
@@ -36,239 +40,91 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mt-20 mx-auto max-lg:p-5">
-    <h2 class="text-center text-2xl font-bold text-secondary mb-5">
-      Estadísticas
-    </h2>
+  <div>
+    <header class="section-header">
+      <p class="section-eyebrow">Goleadores</p>
+      <h2 class="section-title">Estadísticas</h2>
+    </header>
 
     <div v-if="loading" class="text-center">
-      <p class="text-lg">Cargando estadísticas de goleadores...</p>
+      <p class="text-white/50">Cargando estadísticas de goleadores...</p>
     </div>
 
     <div v-else-if="error" class="text-center">
-      <p class="text-red-500 text-lg">{{ error }}</p>
+      <p class="text-red-400">{{ error }}</p>
     </div>
 
+    <ol v-else-if="players.length > 0" class="space-y-2.5">
+      <li
+        v-for="(player, index) in players"
+        :key="player.position"
+        class="scorer card-glass flex items-center gap-4 px-4 py-3 md:gap-6 md:px-6"
+        :class="{ 'is-leader': index === 0 }"
+      >
+        <span class="rank font-display" aria-hidden="true">{{ index + 1 }}</span>
 
-    <div v-else-if="players.length > 0">
-      <table class="stats-table shadow-lg">
-        <thead>
-          <tr class="max-md:text-sm">
-            <th class="player-column">Jugador</th>
-            <th>Goles</th>
-            <th class="max-md:hidden">PJ</th>
-            <th class="max-md:hidden">GPP</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(player, index) in players" :key="player.position" class="player-row">
-            <td class="player-info">
-              <div class="player-details">
-                <div class="player-name">{{ player.player }}</div>
-              </div>
-            </td>
-            <td class="stat-goals">
-              <span class="stat-number">{{ player.goals.total }}</span>
-            </td>
-            <td class="max-md:hidden">{{ player.matches_played }}</td>
-            <td class="max-md:hidden">{{ Math.max(player.goals_per_match).toFixed(2) }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Vista móvil alternativa -->
-      <div class="md:hidden mobile-stats">
-        <div v-for="(player, index) in players" :key="player.position" class="mobile-player-card">
-          <div class="mobile-player-header">
-            <div class="mobile-player-info">
-              <div class="mobile-player-name">{{ player.player }}</div>
-            </div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-baseline justify-between gap-3">
+            <span class="truncate font-semibold tracking-wide text-white">{{ player.player }}</span>
+            <span class="shrink-0 text-xs tracking-widest uppercase text-white/40">
+              {{ player.matches_played }} PJ · {{ Math.max(player.goals_per_match).toFixed(2) }} GPP
+            </span>
           </div>
-          <div class="mobile-stats-grid">
-            <div class="mobile-stat">
-              <span class="mobile-stat-label">Goles</span>
-              <span class="mobile-stat-value">{{ player.goals.total }}</span>
-            </div>
-            <div class="mobile-stat">
-              <span class="mobile-stat-label">PJ</span>
-              <span class="mobile-stat-value">{{ player.matches_played }}</span>
-            </div>
-            <div class="mobile-stat">
-              <span class="mobile-stat-label">GPP</span>
-              <span class="mobile-stat-value">{{ Math.max(player.goals_per_match).toFixed(2) }}</span>
-            </div>
+          <div class="goal-track mt-2" role="presentation">
+            <div class="goal-bar" :style="{ width: `${(player.goals.total / maxGoals) * 100}%` }"></div>
           </div>
         </div>
-      </div>
-    </div>
+
+        <div class="flex shrink-0 flex-col items-center leading-none">
+          <span class="font-display text-3xl text-secondary-300 md:text-4xl">{{ player.goals.total }}</span>
+          <span class="text-[0.6rem] tracking-[0.25em] uppercase text-white/40">Goles</span>
+        </div>
+      </li>
+    </ol>
 
     <div v-else class="text-center py-8">
-      <p class="text-lg">No hay datos disponibles</p>
+      <p class="text-white/50">No hay datos disponibles</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.stats-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 1rem;
+.scorer {
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.scorer:hover {
+  transform: translateX(6px);
+  border-color: rgba(207, 164, 60, 0.35);
+}
+
+.rank {
+  width: 2.2rem;
+  font-size: 1.9rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.is-leader .rank {
+  color: var(--color-secondary);
+}
+
+.is-leader {
+  border-color: rgba(207, 164, 60, 0.4);
+  background: linear-gradient(100deg, rgba(207, 164, 60, 0.12), rgba(255, 255, 255, 0.03) 60%);
+}
+
+.goal-track {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
   overflow: hidden;
 }
 
-.stats-table tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
-.stats-table th {
-  background-color: var(--color-primary);
-  color: white;
-  padding: 16px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 0.95rem;
-}
-
-.stats-table td {
-  padding: 12px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.player-column {
-  text-align: left !important;
-  min-width: 200px;
-}
-
-.player-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-align: left !important;
-}
-
-.player-details {
-  flex: 1;
-}
-
-.player-name {
-  font-weight: 600;
-  font-size: 1rem;
-  color: #1f2937;
-  margin-bottom: 2px;
-}
-
-.player-team {
-  font-size: 0.8rem;
-  color: #6b7280;
-}
-
-.stat-goals {
-  font-weight: bold;
-  color: var(--color-primary);
-}
-
-.stat-number {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-/* Vista móvil */
-.mobile-stats {
-  display: none;
-}
-
-.mobile-player-card {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
-}
-
-.mobile-player-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.mobile-rank {
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: var(--color-primary);
-  min-width: 24px;
-}
-
-.mobile-player-image {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--color-primary);
-}
-
-.mobile-player-info {
-  flex: 1;
-}
-
-.mobile-player-name {
-  font-weight: 600;
-  font-size: 1rem;
-  color: #1f2937;
-  margin-bottom: 2px;
-}
-
-.mobile-player-position {
-  font-size: 0.8rem;
-  color: #6b7280;
-}
-
-.mobile-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.mobile-stat {
-  text-align: center;
-  padding: 8px;
-  background: #f3f4f6;
-  border-radius: 8px;
-}
-
-.mobile-stat-label {
-  display: block;
-  font-size: 0.75rem;
-  color: #6b7280;
-  margin-bottom: 4px;
-}
-
-.mobile-stat-value {
-  display: block;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-primary);
-}
-
-@media (max-width: 768px) {
-  .stats-table {
-    display: none;
-  }
-
-  .mobile-stats {
-    display: block;
-  }
-
-  .stats-container {
-    padding: 0 8px;
-  }
-}
-
-@media (min-width: 769px) {
-  .mobile-stats {
-    display: none;
-  }
+.goal-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-secondary-600), var(--color-secondary-300));
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 </style>

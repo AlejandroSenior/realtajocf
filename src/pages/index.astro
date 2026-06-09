@@ -13,35 +13,47 @@ import Gallery from '@/components/Gallery.astro';
 <Layout>
   <Hero />
 
-  <TeamCarousel />
-
-  <div class="max-w-7xl mx-auto">
-    <LastMatch client:only="vue">
-      <template #fallback>
-        <div>Cargando último resultado...</div>
-      </template>
-    </LastMatch>
-
-    <LeaderBoard client:only="vue">
-      <template #fallback>
-        <div>Cargando clasificación...</div>
-      </template>
-    </LeaderBoard>
-
-    <TopScorers client:only="vue">
-      <template #fallback>
-        <div>Cargando estadísticas de goleadores...</div>
-      </template>
-    </TopScorers>
-
-    <Calendar client:only="vue">
-      <template #fallback>
-        <div>Cargando calendario...</div>
-      </template>
-    </Calendar>
+  <div data-reveal>
+    <TeamCarousel />
   </div>
 
-  <Gallery />
+  <main class="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="ultimo-resultado" class="scroll-mt-10 pt-24" data-reveal>
+      <LastMatch client:only="vue">
+        <template #fallback>
+          <div class="py-10 text-center text-white/50">Cargando último resultado...</div>
+        </template>
+      </LastMatch>
+    </section>
+
+    <section class="pt-24" data-reveal>
+      <LeaderBoard client:only="vue">
+        <template #fallback>
+          <div class="py-10 text-center text-white/50">Cargando clasificación...</div>
+        </template>
+      </LeaderBoard>
+    </section>
+
+    <section class="pt-24" data-reveal>
+      <TopScorers client:only="vue">
+        <template #fallback>
+          <div class="py-10 text-center text-white/50">Cargando estadísticas de goleadores...</div>
+        </template>
+      </TopScorers>
+    </section>
+
+    <section class="pt-24" data-reveal>
+      <Calendar client:only="vue">
+        <template #fallback>
+          <div class="py-10 text-center text-white/50">Cargando calendario...</div>
+        </template>
+      </Calendar>
+    </section>
+  </main>
+
+  <section class="pt-24" data-reveal>
+    <Gallery />
+  </section>
 
   <Footer />
 </Layout>

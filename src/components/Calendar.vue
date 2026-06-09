@@ -60,79 +60,115 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="calendar-wrapper mt-20 max-lg:p-5">
-    <h2 class="text-center text-2xl font-bold text-secondary mb-5">Próximos partidos</h2>
+  <div>
+    <header class="section-header">
+      <p class="section-eyebrow">Calendario</p>
+      <h2 class="section-title">Próximos partidos</h2>
+    </header>
 
     <!-- Loading state -->
     <div v-if="loading" class="text-center">
-      <p>Cargando calendario...</p>
+      <p class="text-white/50">Cargando calendario...</p>
     </div>
 
     <!-- Error state -->
-    <div v-else-if="error">
-      <p>Error al cargar el calendario: {{ error }}</p>
+    <div v-else-if="error" class="text-center">
+      <p class="text-red-400">Error al cargar el calendario: {{ error }}</p>
     </div>
 
     <!-- Calendar content -->
     <div v-else-if="calendar">
-      <div v-if="nextThreeMatches.length > 0">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div
-            v-for="match in nextThreeMatches"
-            :key="`${match.matchday}-${match.date}`"
-            class="flex flex-col justify-between shadow-xl rounded-2xl py-10 px-5 min-h-[250px] border-3 border-primary"
-          >
-            <div class="flex justify-between items-center">
-              <span>Jornada {{ match.stage !== 'Liga' ? `de ${match.stage}` : match.matchday }}</span>
-              <span>
-                {{ match.is_home ? 'Local' : 'Visitante' }}
-              </span>
-            </div>
-
-            <div class="text-center">
-              {{
-                new Date(match.date).toLocaleDateString('es-ES', {
-                  weekday: 'short',
-                  day: '2-digit',
-                  month: 'short'
-                })
-              }}
-              <br />
-              {{ match.time ?? '--:--' }}
-            </div>
-
-            <div class="flex mx-auto items-center">
-              <span class="max-w-[150px] text-center bg-primary-100 rounded-full px-2 py-1">
-                {{ match.is_home ? cutClubNames('Real Tajo CF') : cutClubNames(match.opponent) }}
-              </span>
-
-              <span class="mx-5">VS</span>
-
-              <span class="max-w-[150px] text-center bg-secondary/40 rounded-full px-2 py-1">
-                {{ match.is_home ? cutClubNames(match.opponent) : cutClubNames('Real Tajo CF') }}
-              </span>
-            </div>
-
-            <p class="text-center">{{ match.field }}</p>
+      <div v-if="nextThreeMatches.length > 0" class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <article
+          v-for="match in nextThreeMatches"
+          :key="`${match.matchday}-${match.date}`"
+          class="match-card card-glass flex flex-col overflow-hidden"
+        >
+          <div class="flex items-center justify-between px-5 pt-4 text-xs tracking-[0.2em] uppercase text-white/45">
+            <span>Jornada {{ match.stage !== 'Liga' ? `de ${match.stage}` : match.matchday }}</span>
+            <span
+              class="rounded-sm px-2 py-0.5 font-semibold"
+              :class="match.is_home ? 'bg-secondary/15 text-secondary-300' : 'bg-white/8 text-white/60'"
+            >
+              {{ match.is_home ? 'Local' : 'Visitante' }}
+            </span>
           </div>
-        </div>
+
+          <div class="flex items-center gap-5 px-5 py-6">
+            <!-- bloque fecha -->
+            <div class="date-block flex shrink-0 flex-col items-center px-4 py-2">
+              <span class="font-display text-4xl leading-none text-secondary-300">
+                {{ new Date(match.date).getDate() }}
+              </span>
+              <span class="text-[0.65rem] tracking-[0.25em] uppercase text-white/55">
+                {{ new Date(match.date).toLocaleDateString('es-ES', { month: 'short' }) }}
+              </span>
+              <span class="mt-1 text-xs font-semibold text-white/75">{{ match.time ?? '--:--' }}</span>
+            </div>
+
+            <!-- enfrentamiento -->
+            <div class="min-w-0 flex-1">
+              <p class="versus-team truncate" :class="{ 'is-tajo': match.is_home }">
+                {{ match.is_home ? cutClubNames('Real Tajo CF') : cutClubNames(match.opponent) }}
+              </p>
+              <p class="font-display my-1 text-sm tracking-[0.3em] text-white/30">VS</p>
+              <p class="versus-team truncate" :class="{ 'is-tajo': !match.is_home }">
+                {{ match.is_home ? cutClubNames(match.opponent) : cutClubNames('Real Tajo CF') }}
+              </p>
+            </div>
+          </div>
+
+          <p class="mt-auto border-t border-white/8 px-5 py-3 text-xs tracking-wider uppercase text-white/45">
+            📍 {{ match.field }}
+          </p>
+        </article>
       </div>
 
-      <div v-else class="text-center py-8">
-        <p class="text-lg font-semibold">
+      <div v-else class="card-glass mx-auto max-w-xl py-12 text-center">
+        <p class="font-display text-3xl tracking-wide text-secondary-300">
           {{
             calendar.season
               ? `Liga ${calendar.season.replace('-', '/')} finalizada`
               : 'Temporada finalizada'
           }}
         </p>
-        <p class="text-sm text-gray-500 mt-2">No quedan partidos programados</p>
+        <p class="mt-2 text-sm text-white/50">No quedan partidos programados</p>
       </div>
     </div>
 
     <!-- Fallback state -->
-    <div v-else>
-      <p>No se pudieron cargar los partidos del calendario</p>
+    <div v-else class="text-center">
+      <p class="text-white/50">No se pudieron cargar los partidos del calendario</p>
     </div>
   </div>
 </template>
+
+<style scoped>
+.match-card {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.match-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(207, 164, 60, 0.35);
+  box-shadow: 0 18px 40px rgba(3, 16, 41, 0.55);
+}
+
+.date-block {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.versus-team {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.versus-team.is-tajo {
+  color: var(--color-secondary-300);
+}
+</style>

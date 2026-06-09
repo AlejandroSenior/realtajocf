@@ -82,8 +82,8 @@ import Layout from '@/layouts/Layout.astro';
     <div class="login-card">
       <div class="login-header">
         <img src="/escudo.avif" alt="Real Tajo C.F." class="logo mx-auto" />
-        <h1>Iniciar Sesión</h1>
-        <p>Real Tajo C.F. - Panel de Administración</p>
+        <h1 class="font-display">Iniciar Sesión</h1>
+        <p>Real Tajo C.F. &middot; Panel de Administración</p>
       </div>
 
       <form id="login-form" class="login-form">
@@ -114,15 +114,16 @@ import Layout from '@/layouts/Layout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
     padding: 20px;
   }
 
   .login-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 40px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 24px 60px rgba(2, 8, 23, 0.6);
     max-width: 400px;
     width: 100%;
   }
@@ -138,17 +139,18 @@ import Layout from '@/layouts/Layout.astro';
     border-radius: 50%;
     margin-bottom: 20px;
     object-fit: cover;
+    border: 2px solid rgba(207, 164, 60, 0.5);
   }
 
   .login-header h1 {
-    color: #333;
+    color: #f4f6fb;
     margin: 0 0 10px 0;
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: 0.05em;
   }
 
   .login-header p {
-    color: #666;
+    color: rgba(232, 236, 246, 0.55);
     margin: 0;
     font-size: 14px;
   }
@@ -166,33 +168,39 @@ import Layout from '@/layouts/Layout.astro';
   }
 
   .form-group label {
-    color: #333;
+    color: rgba(232, 236, 246, 0.8);
     font-size: 14px;
     font-weight: 500;
   }
 
   .form-group input {
     padding: 12px 16px;
-    border: 2px solid #e0e0e0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
     font-size: 16px;
+    color: #f4f6fb;
     transition: border-color 0.3s ease;
     font-family: inherit;
   }
 
+  .form-group input::placeholder {
+    color: rgba(232, 236, 246, 0.35);
+  }
+
   .form-group input:focus {
     outline: none;
-    border-color: #2a5298;
+    border-color: var(--color-secondary);
   }
 
   .login-button {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    color: white;
+    background: linear-gradient(120deg, #ecd49a 0%, #cfa43c 60%, #a87f24 100%);
+    color: #040b1c;
     border: none;
     padding: 14px;
     border-radius: 8px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition:
       transform 0.2s ease,
@@ -207,7 +215,7 @@ import Layout from '@/layouts/Layout.astro';
 
   .login-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(42, 82, 152, 0.3);
+    box-shadow: 0 8px 24px rgba(207, 164, 60, 0.35);
   }
 
   .login-button:active {
@@ -234,11 +242,11 @@ import Layout from '@/layouts/Layout.astro';
   }
 
   .error-message {
-    background: #fee;
-    color: #c33;
+    background: rgba(220, 60, 60, 0.12);
+    color: #ff9d9d;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #fcc;
+    border: 1px solid rgba(220, 60, 60, 0.35);
     font-size: 14px;
     text-align: center;
   }

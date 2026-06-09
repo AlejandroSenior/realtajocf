@@ -26,93 +26,75 @@ onMounted(async () => {
 </script>
 
 <template>
+  <section aria-label="Último resultado">
+    <header class="section-header items-center text-center">
+      <p class="section-eyebrow">Marcador</p>
+      <h2 class="section-title">Último resultado</h2>
+      <p class="mt-1 text-sm tracking-widest uppercase text-white/50" v-if="!loading && !error">
+        {{
+          lastMatch?.date ?
+            new Date(lastMatch?.date).toLocaleDateString('es-ES', {
+              weekday: 'long',
+              month: 'long',
+              day: '2-digit'
+            }) : 'Fecha no disponible'
+        }}
+      </p>
+    </header>
 
-  <section class="mt-20 max-lg:p-5">
-    <h2 class="text-center text-3xl md:text-5xl font-extrabold tracking-wide text-primary">Último resultado</h2>
-
-    <p class="text-sm text-center mt-3" v-if="!loading && !error">
-      {{
-        lastMatch?.date ?
-          new Date(lastMatch?.date).toLocaleDateString('es-ES', {
-            weekday: 'short',
-            month: 'short',
-            day: '2-digit'
-          }) : 'Fecha no disponible'
-      }}
-    </p>
-
-    <div v-if="loading" class="text-center mt-3">
-      <p class="text-sm">Cargando último resultado...</p>
+    <div v-if="loading" class="text-center">
+      <p class="text-sm text-white/50">Cargando último resultado...</p>
     </div>
 
-    <div v-if="error" class="text-center mt-3">
-      <p class="text-sm text-red-500">Error: {{ error }}</p>
+    <div v-if="error" class="text-center">
+      <p class="text-sm text-red-400">Error: {{ error }}</p>
     </div>
 
-    <div v-if="!loading && !error" class="mt-5 flex flex-col items-center gap-5" aria-label="Match result">
-      <!-- fila equipos + marcador -->
-      <div class="flex items-center md:gap-5">
+    <div v-if="!loading && !error" class="card-glass mx-auto max-w-4xl px-6 py-10 md:px-12" aria-label="Resultado del partido">
+      <div class="flex items-center justify-center gap-4 md:gap-8">
         <!-- Home -->
-        <div class="hidden md:flex flex-col items-center min-w-56">
-          <span class="text-lg tracking-wide uppercase">{{ lastMatch ? lastMatch.homeTeam : 'REAL TAJO C.F.' }}</span>
-          <span class="mt-2 h-0.5 w-48 bg-gray-200"></span>
+        <div class="flex flex-1 flex-col items-center gap-3 md:flex-row md:justify-end">
+          <span class="team-name font-display order-2 md:order-1">{{ lastMatch ? lastMatch.homeTeam : 'REAL TAJO C.F.' }}</span>
+          <img :src="lastMatch?.homeTeam === 'REAL TAJO' ? '/escudo-without-bg.avif' : '/escudo-default.avif'"
+            :alt="`${lastMatch?.homeTeam} logo`" class="order-1 w-14 md:order-2 md:w-18" />
         </div>
 
-        <!-- bloque marcador -->
-        <div class="flex items-center">
-          <!-- Home logo -->
-          <div class="-mr-5 z-10">
-            <img :src="lastMatch?.homeTeam === 'REAL TAJO' ? '/escudo-without-bg.avif' : '/escudo-default.avif'"
-              :alt="`${lastMatch?.homeTeam} logo`" class="w-15" />
+        <!-- marcador -->
+        <div class="flex shrink-0 items-center">
+          <div class="score-chunk-left bg-secondary px-6 py-2 md:px-9 md:py-3">
+            <span class="font-display block text-5xl leading-none text-primary-950 md:text-7xl">{{ lastMatch?.homeScore ?? '-' }}</span>
           </div>
-
-          <!-- pieza izquierda -->
-          <div class="score-chunk-left bg-secondary px-10 md:px-10 py-2 mr-2">
-            <span class="block text-4xl md:text-5xl font-extrabold leading-none text-center">{{ lastMatch?.homeScore ??
-              '-' }}</span>
-          </div>
-
-          <!-- separador central con “pico” -->
-          <div class="score-chunk-mid bg-secondary px-10 md:px-10 py-2 ml-2">
-            <span class="block text-4xl md:text-5xl font-extrabold leading-none text-center">{{ lastMatch?.awayScore ??
-              '-' }}</span>
-          </div>
-
-          <!-- Away logo -->
-          <div class="-ml-5 z-10">
-            <img :src="lastMatch?.awayTeam === 'REAL TAJO' ? '/escudo-without-bg.avif' : '/escudo-default.avif'"
-              :alt="`${lastMatch?.awayTeam} logo`" class="w-15" />
+          <div class="score-chunk-mid ml-1.5 bg-secondary px-6 py-2 md:px-9 md:py-3">
+            <span class="font-display block text-5xl leading-none text-primary-950 md:text-7xl">{{ lastMatch?.awayScore ?? '-' }}</span>
           </div>
         </div>
 
         <!-- Away -->
-        <div class="hidden md:flex flex-col items-center min-w-56">
-          <span class="text-lg tracking-wide uppercase">{{ lastMatch?.awayTeam }}</span>
-          <span class="mt-2 h-0.5 w-48 bg-gray-200"></span>
-        </div>
-      </div>
-
-      <!-- nombres para móvil -->
-      <div class="md:hidden grid grid-cols-2 gap-4 w-full px-6">
-        <div class="flex flex-col text-center">
-          <div class="font-medium">{{ lastMatch?.homeTeam }}</div>
-          <div class="mx-auto mt-2 h-0.5 w-24 bg-gray-200"></div>
-        </div>
-        <div class="flex flex-col justify-between text-center">
-          <div class="font-medium">{{ lastMatch?.awayTeam }}</div>
-          <div class="mx-auto mt-2 h-0.5 w-24 bg-gray-200"></div>
+        <div class="flex flex-1 flex-col items-center gap-3 md:flex-row md:justify-start">
+          <img :src="lastMatch?.awayTeam === 'REAL TAJO' ? '/escudo-without-bg.avif' : '/escudo-default.avif'"
+            :alt="`${lastMatch?.awayTeam} logo`" class="w-14 md:w-18" />
+          <span class="team-name font-display">{{ lastMatch?.awayTeam }}</span>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-<style>
+<style scoped>
+.team-name {
+  font-size: clamp(1rem, 2.2vw, 1.7rem);
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+  text-align: center;
+  text-transform: uppercase;
+  color: #f4f6fb;
+}
+
 .score-chunk-left {
-  clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%);
 }
 
 .score-chunk-mid {
-  clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 50%);
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%);
 }
 </style>
