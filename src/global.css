@@ -27,6 +27,37 @@
 
   --font-display: 'Bebas Neue', 'Graduate', sans-serif;
   --font-body: 'Barlow', system-ui, sans-serif;
+
+  /* Entrada de página: el contenido aparece en cascada de arriba a abajo */
+  --animate-fade-down: fade-down 3s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes fade-down {
+    from {
+      opacity: 0;
+      transform: translateY(-1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* La cascada de entrada se ejecuta siempre; con movimiento reducido
+   se convierte en un fundido puro, sin desplazamiento vertical */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-down {
+    animation-name: fade-in;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @layer base {

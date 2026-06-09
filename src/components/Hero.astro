@@ -6,9 +6,11 @@ import SeasonBadge from './SeasonBadge.vue';
   <!-- texto gigante de fondo -->
   <span aria-hidden="true" class="hero-ghost font-display select-none">TAJO</span>
 
-  <p class="hero-item hero-kicker font-display text-secondary" style="--i: 0">Club de Fútbol &middot; Aranjuez</p>
+  <p class="hero-kicker font-display text-secondary animate-fade-down [animation-delay:120ms]">
+    Club de Fútbol &middot; Aranjuez
+  </p>
 
-  <h1 id="team-name" class="hero-item font-display" style="--i: 1">
+  <h1 id="team-name" class="font-display animate-fade-down [animation-delay:260ms]">
     Real Tajo <span class="text-secondary">C.F.</span>
   </h1>
 
@@ -16,17 +18,16 @@ import SeasonBadge from './SeasonBadge.vue';
     id="crest"
     src="/escudo-without-bg.avif"
     alt="Escudo Real Tajo CF"
-    class="hero-item mt-8 w-28 drop-shadow-[0_12px_40px_rgba(207,164,60,0.35)] md:w-40"
-    style="--i: 2"
+    class="mt-8 w-28 drop-shadow-[0_12px_40px_rgba(207,164,60,0.35)] md:w-40 animate-fade-down [animation-delay:400ms]"
   />
 
-  <div class="hero-item" style="--i: 3">
+  <div class="animate-fade-down [animation-delay:540ms]">
     <SeasonBadge client:only="vue" />
   </div>
 
   <!-- indicador de scroll -->
-  <a href="#ultimo-resultado" aria-label="Bajar al contenido" class="hero-item absolute bottom-8 left-1/2 -translate-x-1/2" style="--i: 4">
-    <span class="scroll-cue block h-10 w-6 rounded-full border-2 border-white/30"></span>
+  <a href="#ultimo-resultado" aria-label="Bajar al contenido" class="absolute bottom-8 left-1/2 -translate-x-1/2">
+    <span class="scroll-cue block h-10 w-6 rounded-full border-2 border-white/30 animate-fade-down [animation-delay:680ms]"></span>
   </a>
 </section>
 
@@ -69,23 +70,6 @@ import SeasonBadge from './SeasonBadge.vue';
     text-shadow: 0 20px 60px rgba(3, 16, 41, 0.8);
   }
 
-  /* entrada escalonada */
-  .hero-item {
-    animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--i) * 0.13s);
-  }
-
-  @keyframes hero-rise {
-    from {
-      transform: translateY(2.2em);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
   .scroll-cue {
     position: relative;
   }
@@ -119,9 +103,6 @@ import SeasonBadge from './SeasonBadge.vue';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-item {
-      animation: none;
-    }
     .scroll-cue::after {
       animation: none;
     }
