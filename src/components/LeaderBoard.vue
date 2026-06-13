@@ -42,8 +42,29 @@ onMounted(() => {
       <h2 class="section-title">Clasificación</h2>
     </header>
 
-    <div v-if="loading" class="text-center">
-      <p class="text-white/50">Cargando clasificación...</p>
+    <div v-if="loading" class="card-glass overflow-hidden" aria-hidden="true">
+      <table class="standings w-full">
+        <thead>
+          <tr class="max-md:text-xs">
+            <th class="w-12">Pos</th>
+            <th class="!text-left">Club</th>
+            <th>Pts</th>
+            <th>GF</th>
+            <th>GC</th>
+            <th>PJ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="n in 10" :key="n">
+            <td><span class="skeleton mx-auto block h-7 w-7 rounded-md"></span></td>
+            <td class="!text-left"><span class="skeleton inline-block h-4 w-28 max-w-full rounded"></span></td>
+            <td><span class="skeleton mx-auto block h-4 w-8 rounded"></span></td>
+            <td><span class="skeleton mx-auto block h-4 w-6 rounded"></span></td>
+            <td><span class="skeleton mx-auto block h-4 w-6 rounded"></span></td>
+            <td><span class="skeleton mx-auto block h-4 w-6 rounded"></span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div v-else-if="error" class="text-center py-8">

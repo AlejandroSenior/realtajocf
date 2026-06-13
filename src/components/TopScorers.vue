@@ -46,9 +46,25 @@ onMounted(() => {
       <h2 class="section-title">Estadísticas</h2>
     </header>
 
-    <div v-if="loading" class="text-center">
-      <p class="text-white/50">Cargando estadísticas de goleadores...</p>
-    </div>
+    <ol v-if="loading" class="space-y-2.5" aria-hidden="true">
+      <li
+        v-for="n in 5"
+        :key="n"
+        class="scorer card-glass flex items-center gap-4 px-4 py-3 md:gap-6 md:px-6"
+      >
+        <span class="skeleton h-8 w-8 shrink-0 rounded-md"></span>
+
+        <div class="min-w-0 flex-1">
+          <div class="flex items-baseline justify-between gap-3">
+            <span class="skeleton h-4 w-32 max-w-[60%] rounded"></span>
+            <span class="skeleton h-3 w-20 shrink-0 rounded"></span>
+          </div>
+          <div class="skeleton mt-2 h-[5px] w-full rounded-full"></div>
+        </div>
+
+        <span class="skeleton h-9 w-9 shrink-0 rounded"></span>
+      </li>
+    </ol>
 
     <div v-else-if="error" class="text-center">
       <p class="text-red-400">{{ error }}</p>

@@ -67,8 +67,27 @@ onMounted(() => {
     </header>
 
     <!-- Loading state -->
-    <div v-if="loading" class="text-center">
-      <p class="text-white/50">Cargando calendario...</p>
+    <div v-if="loading" class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
+      <div v-for="n in 3" :key="n" class="match-card card-glass flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between px-5 pt-4">
+          <span class="skeleton h-3 w-24 rounded"></span>
+          <span class="skeleton h-5 w-16 rounded-sm"></span>
+        </div>
+
+        <div class="flex items-center gap-5 px-5 py-6">
+          <div class="date-block skeleton h-20 w-16 shrink-0"></div>
+
+          <div class="min-w-0 flex-1 space-y-2.5">
+            <span class="skeleton block h-3.5 w-3/4 rounded"></span>
+            <span class="skeleton block h-3 w-6 rounded"></span>
+            <span class="skeleton block h-3.5 w-2/3 rounded"></span>
+          </div>
+        </div>
+
+        <div class="mt-auto border-t border-white/8 px-5 py-3">
+          <span class="skeleton inline-block h-3 w-32 rounded"></span>
+        </div>
+      </div>
     </div>
 
     <!-- Error state -->

@@ -40,10 +40,28 @@ onMounted(async () => {
             }) : 'Fecha no disponible'
         }}
       </p>
+      <p class="mt-1 flex justify-center" v-else-if="loading" aria-hidden="true">
+        <span class="skeleton h-4 w-40 rounded"></span>
+      </p>
     </header>
 
-    <div v-if="loading" class="text-center">
-      <p class="text-sm text-white/50">Cargando último resultado...</p>
+    <div v-if="loading" class="card-glass mx-auto max-w-4xl px-6 py-10 md:px-12" aria-hidden="true">
+      <div class="flex items-center justify-center gap-4 md:gap-8">
+        <div class="flex flex-1 flex-col items-center gap-3 md:flex-row md:justify-end">
+          <span class="skeleton order-2 h-5 w-28 rounded md:order-1"></span>
+          <span class="skeleton order-1 h-14 w-14 rounded-full md:order-2 md:h-18 md:w-18"></span>
+        </div>
+
+        <div class="flex shrink-0 items-center gap-1.5">
+          <span class="skeleton h-16 w-14 rounded md:h-20 md:w-20"></span>
+          <span class="skeleton h-16 w-14 rounded md:h-20 md:w-20"></span>
+        </div>
+
+        <div class="flex flex-1 flex-col items-center gap-3 md:flex-row md:justify-start">
+          <span class="skeleton h-14 w-14 rounded-full md:h-18 md:w-18"></span>
+          <span class="skeleton h-5 w-28 rounded"></span>
+        </div>
+      </div>
     </div>
 
     <div v-if="error" class="text-center">
